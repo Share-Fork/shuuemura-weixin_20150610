@@ -512,6 +512,11 @@ function weixinActivity($el, cache) {
 
 
     $el.wyyyBtn.on('tap', function (evt) {
+        var tapLock = $el.wyyyBtn.data('tapLock');
+        if(tapLock){
+            return false;
+        }
+        $el.wyyyBtn.data('tapLock', true);
         var handle1 = $.ajax({
             type: "GET",
             url: ajaxHost+"/is_allow_catch.php",
@@ -529,7 +534,9 @@ function weixinActivity($el, cache) {
             }
         });
         handle1.fail(netError);
-
+        handle1.done(function(){
+            $el.wyyyBtn.data('tapLock', false);
+        });
     });
     $el.qryyBtn.on('tap', function () {
         var res1 = $.ajax({
@@ -537,10 +544,13 @@ function weixinActivity($el, cache) {
             url: ajaxHost+"/is_allow_catch.php",
             dataType: "json"
         });
-        //swipeUpFn(2);
+        swipeUpFn(2);
     });
     $el.zdlBtn.on('tap', function(){
-        log.debug('zdlBtn');
+        if(WeixinJSBridge){
+            WeixinJSBridge.call('closeWindow');
+        }
+        //log.debug('zdlBtn');
     });
 }
 
@@ -712,7 +722,10 @@ function weixinServing($el, cache) {
         log.debug('ljfxBtn');
     });
     $el.exitBtn.on('tap', function () {
-        log.debug('exitBtn');
+        if(WeixinJSBridge){
+            WeixinJSBridge.call('closeWindow');
+        }
+        //log.debug('exitBtn');
     });
 }
 
