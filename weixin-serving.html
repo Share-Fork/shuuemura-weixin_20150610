@@ -2,13 +2,16 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link href="css/index.css" type="text/css" rel="stylesheet"/>
-    <link rel="stylesheet" href="css/animations.css"/>
+    <link rel="stylesheet" href="./libs/sweetalert/1.0.0/sweetalert.css">
+    <link rel="stylesheet" href="./css/animations.css"/>
+    <link rel="stylesheet" href="./css/index.css"/>
     <meta name="viewport" content="width=640,target-densitydpi=device-dpi,user-scalable=no"/>
     <title>预约服务</title>
+    <script src="./libs/loglevel/1.3.0/loglevel.min.js"></script>
     <script src="./libs/jquery/2.1.4/jquery.js"></script>
     <script src="./libs/jquery-touch/1.0.0/jquery-touch.js"></script>
-    <script src="/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="./libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="./libs/sweetalert/1.0.0/sweetalert-dev.js"></script>
     <script src="js/self-min.js"></script>
     <script src="js/PxLoader.js"></script>
     <script src="js/weixinjs.js?123"></script>
@@ -24,12 +27,12 @@
     <div class="box-step zhuquan4" style="display:block">
         <div class="box">
             <ul class="s4-1">
-                <li>姓名：王广兴</li>
-                <li>手机：1393821543</li>
-                <li>城市：上海</li>
-                <li>专柜：淮海百盛</li>
-                <li>预约日期：2015-06-03</li>
-                <li>预约时间：13:00</li>
+                <li>姓名：<span>王广兴</span></li>
+                <li>手机：<span>1393821543</span></li>
+                <li>城市：<span>上海</span></li>
+                <li>专柜：<span>淮海百盛</span></li>
+                <li>预约日期：<span>2015-06-03</span></li>
+                <li>预约时间：<span>13:00</span></li>
             </ul>
             <span class="s4-2"></span>
         </div>
@@ -44,7 +47,7 @@
         <div class="box">
             <span class="s6-1"></span>
            <span class="s6-2">
-              <em class="star on"></em><em class="star"></em><em class="star"></em><em class="star"></em><em
+              <em class="star"></em><em class="star"></em><em class="star"></em><em class="star"></em><em
                    class="star"></em>
            </span>
            <span class="s6-3">

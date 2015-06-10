@@ -1,3 +1,4 @@
+log.enableAll()
 var Animate = {
     1: {
         up: {out: "pt-page-moveToTop", "IN": "pt-page-moveFromBottom"},
@@ -135,7 +136,7 @@ function resize() {
 var Animate_Index = 0;
 var Animate_lastIndex = Animate_Index;
 var Animate_isSwipe = true;
-var Animate_css = Animate[15];
+var Animate_css = Animate[4];
 var Animate_Bstop = true;
 
 $('.pageall').eq(Animate_lastIndex).show();
@@ -145,7 +146,7 @@ var BSTOP = true;
 var SHAKE_THRESHOLD = Zhu._Android ? 500 : 700;
 var lastUpdate = 0;
 var x, y, z, last_x, last_y, last_z;
-function deviceMotionHandler(eventData) {
+/*function deviceMotionHandler(eventData) {
 
 
     var acceleration = eventData.accelerationIncludingGravity;
@@ -172,7 +173,7 @@ function deviceMotionHandler(eventData) {
         last_y = y;
         last_z = z;
     }
-};
+};*/
 
 
 function YaoYiYao() {
@@ -180,7 +181,7 @@ function YaoYiYao() {
 
     $('#sound0')[0].play();
 
-    window.removeEventListener('devicemotion', deviceMotionHandler, false);
+    //window.removeEventListener('devicemotion', deviceMotionHandler, false);
     if (window.NotCode) {
 
         //$.ajax({
@@ -231,41 +232,41 @@ function YaoYiYao() {
 
 function AnimateTween() {
 
-    window.removeEventListener('devicemotion', deviceMotionHandler, false);
+    //window.removeEventListener('devicemotion', deviceMotionHandler, false);
     switch (Animate_Index) {
         case 0:
 
             break;
         case 1:
-            $('.s2-4').from({bottom: -100, opacity: 0});
-            $('.s2-3').from({transform: 'scale(1.5)', opacity: 0, delay: .5})
-            $('.s2-2').from({transform: 'translate(0,50px)', opacity: 0, delay: 1});
-
-
-            $('.page2 .logo1').from({transform: 'translate(0,-20px)', opacity: 0, delay: 1.2});
-            $('.s2-1').from({transform: 'translate(0,-20px)', opacity: 0, delay: 1.4});
+            //$('.s2-4').from({bottom: -100, opacity: 0});
+            //$('.s2-3').from({transform: 'scale(1.5)', opacity: 0, delay: .5})
+            //$('.s2-2').from({transform: 'translate(0,50px)', opacity: 0, delay: 1});
+            //
+            //
+            //$('.page2 .logo1').from({transform: 'translate(0,-20px)', opacity: 0, delay: 1.2});
+            //$('.s2-1').from({transform: 'translate(0,-20px)', opacity: 0, delay: 1.4});
 
 
             break;
         case 2:
-            $('.s3-4').from({bottom: -100, opacity: 0});
-            $('.s3-3').from({transform: 'scale(1.5)', opacity: 0, delay: .5})
-            $('.s3-2').from({transform: 'translate(0,50px)', opacity: 0, delay: 1});
+            //$('.s3-4').from({bottom: -100, opacity: 0});
+            //$('.s3-3').from({transform: 'scale(1.5)', opacity: 0, delay: .5})
+            //$('.s3-2').from({transform: 'translate(0,50px)', opacity: 0, delay: 1});
+            //
+            //
+            //$('.page3 .logo1').from({transform: 'translate(0,-20px)', opacity: 0, delay: 1.2});
+            //$('.s3-1').from({transform: 'translate(0,-20px)', opacity: 0, delay: 1.4});
 
 
-            $('.page3 .logo1').from({transform: 'translate(0,-20px)', opacity: 0, delay: 1.2});
-            $('.s3-1').from({transform: 'translate(0,-20px)', opacity: 0, delay: 1.4});
-
-
-            setTimeout(function () {
-                BSTOP = true;
-                window.addEventListener('devicemotion', deviceMotionHandler, false);
-
-
-                $('.s3-3').click(function () {
-                    YaoYiYao();
-                })
-            }, 1000)
+            //setTimeout(function () {
+            //    BSTOP = true;
+            //    window.addEventListener('devicemotion', deviceMotionHandler, false);
+            //
+            //
+            //    $('.s3-3').click(function () {
+            //        YaoYiYao();
+            //    })
+            //}, 1000)
 
 
             break;
@@ -463,17 +464,21 @@ $('img').each(function () {
 
 function HTMLStart() {
 
-    $('.s1-2').from({transform: 'scale(1.5)', opacity: 0})
-    $('.s1-3').from({transform: 'translate(0 , 50px)', opacity: 0, delay: .5})
-    $('.s1-4').from({transform: 'translate(-50px,0)', opacity: 0, delay: .5})
-
-
-    $('.logo1:first').from({transform: 'translate(0,-50px)', opacity: 0, delay: 1})
-    $('.s1-1').from({transform: 'translate(0,-50px)', opacity: 0, delay: 1.5})
-    $('.s1-5').from({transform: 'translate(0,50px)', opacity: 0, delay: 1.5})
+    //$('.s1-2').from({transform: 'scale(1.5)', opacity: 0})
+    //$('.s1-3').from({transform: 'translate(0 , 50px)', opacity: 0, delay: .5})
+    //$('.s1-4').from({transform: 'translate(-50px,0)', opacity: 0, delay: .5})
+    //
+    //
+    //$('.logo1:first').from({transform: 'translate(0,-50px)', opacity: 0, delay: 1})
+    //$('.s1-1').from({transform: 'translate(0,-50px)', opacity: 0, delay: 1.5})
+    //$('.s1-5').from({transform: 'translate(0,50px)', opacity: 0, delay: 1.5})
 
 }
 
+var ajaxHost = 'http://192.168.1.124/test/';
+var  netError = function(){
+    alert('网络异常!');
+};
 
 function weixinActivity($el, cache) {
     Animate_Index = 0;
@@ -506,14 +511,36 @@ function weixinActivity($el, cache) {
     $el.zdlBtn = $('.s3-1 .btn');
 
 
-    $el.wyyyBtn.on('tap', function () {
-        swipeUpFn(1);
+    $el.wyyyBtn.on('tap', function (evt) {
+        var handle1 = $.ajax({
+            type: "GET",
+            url: ajaxHost+"/is_allow_catch.php",
+            dataType: "json"
+        });
+        handle1.then(function(data, xhr){
+            if(data.success){
+                if(data.data === 1){
+                    swipeUpFn(1);
+                }else{
+                    location.href = ajaxHost;
+                }
+            }else{
+                alert(data.msg);
+            }
+        });
+        handle1.fail(netError);
+
     });
     $el.qryyBtn.on('tap', function () {
-        swipeUpFn(2);
+        var res1 = $.ajax({
+            type: "GET",
+            url: ajaxHost+"/is_allow_catch.php",
+            dataType: "json"
+        });
+        //swipeUpFn(2);
     });
     $el.zdlBtn.on('tap', function(){
-        console.log('zdlBtn');
+        log.debug('zdlBtn');
     });
 }
 
@@ -545,20 +572,147 @@ function weixinServing($el, cache) {
     $el.ljfxBtn = $('.s7-1 .btn1');
     $el.exitBtn = $('.s7-1 .btn2');
 
-    $el.qrsyBtn.on('tap', function () {
-        swipeUpFn(1);
-    });
+    $el.infoList = $('.s4-1 li span');
+    $el.baCodeInput = $('.s5-1 .ipt');
+    $el.starInput = $('.s6-2 .star');
+    $el.proposeInput = $('.s6-3 textarea');
+
+    var initHandle1 = function(){
+        var handle1 = $.ajax({
+            type: "GET", //POST
+            url: ajaxHost+"get_book_ticket_info.php",
+            data: {
+                book_id: 'xxx'
+            },
+            dataType: "json"
+        });
+        handle1.then(function (data, xhr) {
+            //log.debug(data);
+            if (!data.success) {
+                alert(data.msg);
+                return false;
+            }
+            $el.infoList.eq(0).text(data.data[0].book_user);
+            $el.infoList.eq(1).text(data.data[0].book_user_phone);
+            $el.infoList.eq(2).text(data.data[0].book_city);
+            $el.infoList.eq(3).text(data.data[0].book_shoppe);
+            $el.infoList.eq(4).text(data.data[0].book_date);
+            $el.infoList.eq(5).text(data.data[0].book_time);
+
+            var qrsyBtnFunc;
+            if (data.data[0].is_execute === 1) {
+                qrsyBtnFunc = function () {
+                    alert('您已经兑换!');
+                };
+            } else if (data.data[0].is_execute === 0) {
+                qrsyBtnFunc = function () {
+                    swipeUpFn(1);
+                };
+            } else {
+                qrsyBtnFunc = function () {
+                    alert('兑换异常!');
+                };
+            }
+            $el.qrsyBtn.on('tap', qrsyBtnFunc);
+        });
+        handle1.fail(netError);
+    };
+    initHandle1();
+
     $el.qrtj1Btn.on('tap', function () {
-        swipeUpFn(2);
+        var tapLock =  $el.qrtj1Btn.data('tapLock');
+        if(tapLock){
+            return false;
+        }
+        var baCode = $el.baCodeInput.val();
+        baCode = $.trim(baCode);
+        if(!baCode.length){
+            alert('请输入 Ba Code!');
+            return false;
+        }
+
+        $el.qrtj1Btn.data('tapLock', true);
+        var handle2 = $.ajax({
+            type: "GET", //POST
+            url: ajaxHost+"update_book_ticket.php",
+            data: {
+                book_id: 'xxx',
+                ba_code: baCode
+            },
+            dataType: "json"
+        });
+        handle2.then(function(data, xhr){
+            //log.debug(data);
+            if (!data.success) {
+                alert(data.msg);
+                return false;
+            }
+            swipeUpFn(2);
+            cache.baCode = baCode;
+        });
+        handle2.fail(netError);
+        handle2.done(function(){
+            $el.qrtj1Btn.data('tapLock', false);
+        });
+    });
+    $el.starInput.on('tap', function(){
+        var $self = $(this);
+        var starIndex = $self.index();
+        $el.starInput.removeClass('on');
+        for(var i = 0; i <= starIndex; i++){
+            $el.starInput.eq(i).addClass('on');
+        }
+        $el.starInput.data('starNum', starIndex+1);
     });
     $el.qrtj2Btn.on('tap', function () {
-        swipeUpFn(3);
+        var tapLock =  $el.qrtj2Btn.data('tapLock');
+        if(tapLock){
+            return false;
+        }
+        var starNum =  $el.starInput.data('starNum');
+        if(!starNum){
+            alert('请评星!');
+            return false;
+        }
+        var propose = $el.proposeInput.val();
+        propose = $.trim(propose);
+        if(!propose.length){
+            alert('请输入建议!');
+            return false;
+        }
+
+        $el.qrtj2Btn.data('tapLock', true);
+        var handle3 = $.ajax({
+            type: "GET", //POST
+            url: ajaxHost+"add_ba_score.php",
+            data: {
+                book_id: 'xxx',
+                book_name: 'xxx',
+                ba_code: cache.baCode,
+                score: starNum,
+                comment: propose,
+            },
+            dataType: "json"
+        });
+        handle3.then(function(data, xhr){
+            //log.debug(data);
+            if (!data.success) {
+                alert(data.msg);
+                return false;
+            }
+            swipeUpFn(3);
+        });
+        handle3.fail(netError);
+        handle3.done(function(){
+            $el.qrtj2Btn.data('tapLock', false);
+        });
+        //swipeUpFn(3);
     });
     $el.ljfxBtn.on('tap', function () {
-        console.log('ljfxBtn');
+        log.debug('ljfxBtn');
     });
     $el.exitBtn.on('tap', function () {
-        console.log('exitBtn');
+        log.debug('exitBtn');
     });
 }
 
