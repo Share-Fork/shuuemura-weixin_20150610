@@ -102,7 +102,8 @@ var Animate = {
         right: {out: "rotateSlideOuttoright", "IN": "rotateSlideIntoright"}
     }
 };
-
+var $el = {};
+var cache = {};
 
 if (Zhu._weixin && Zhu._Android) {
 
@@ -121,15 +122,12 @@ if (Zhu._weixin && Zhu._Android) {
  */
 
 
-document.addEventListener('touchmove', function (ev) {
+$(document).on('touchmove', function (ev) {
     ev.preventDefault();
-    return false;
-}, false)
+}, false);
 
 
-window.
-
-    $(window).resize(resize) , resize();
+$(window).resize(resize) , resize();
 function resize() {
 };
 
@@ -185,45 +183,45 @@ function YaoYiYao() {
     window.removeEventListener('devicemotion', deviceMotionHandler, false);
     if (window.NotCode) {
 
-        $.ajax({
-            type: 'POST',
-            url: 'get_free.php',
-            success: function () {
-
-                setTimeout(function () {
-                    swipeUpFn(6);
-                }, 1000)
-
-
-            }
-        })
+        //$.ajax({
+        //    type: 'POST',
+        //    url: 'get_free.php',
+        //    success: function () {
+        //
+        //        setTimeout(function () {
+        //            swipeUpFn(6);
+        //        }, 1000)
+        //
+        //
+        //    }
+        //})
 
 
     } else {
-        $.ajax({
-            type: 'POST',
-            url: 'get_prizes.php',
-            dataType: "json",
-            data: {
-                code: window.UserCode
-            },
-            success: function (res) {
-                if (res.success == true) {
-
-                    setTimeout(function () {
-                        swipeUpFn(3);
-                    }, 1000)
-
-                    //中奖
-                } else {
-
-                    setTimeout(function () {
-                        swipeUpFn(5);
-                    }, 1000)
-                    //未中奖
-                }
-            }
-        })
+        //$.ajax({
+        //    type: 'POST',
+        //    url: 'get_prizes.php',
+        //    dataType: "json",
+        //    data: {
+        //        code: window.UserCode
+        //    },
+        //    success: function (res) {
+        //        if (res.success == true) {
+        //
+        //            setTimeout(function () {
+        //                swipeUpFn(3);
+        //            }, 1000)
+        //
+        //            //中奖
+        //        } else {
+        //
+        //            setTimeout(function () {
+        //                swipeUpFn(5);
+        //            }, 1000)
+        //            //未中奖
+        //        }
+        //    }
+        //})
 
     }
 
@@ -274,57 +272,56 @@ function AnimateTween() {
 
 
         case 3:
-            $('.s4-1 .simg').each(function (i) {
-                $(this).from({opacity: 0, transform: 'scale(.75)', delay: i * .3})
-            })
+            //$('.s4-1 .simg').each(function (i) {
+            //    $(this).from({opacity: 0, transform: 'scale(.75)', delay: i * .3})
+            //})
+            //
+            //setTimeout(function () {
+            //    swipeUpFn(4);
+            //}, 5000)
 
-            setTimeout(function () {
-                swipeUpFn(4);
-            }, 5000)
             break;
-
-
         case 4:
 
 
-            $('.s5-1').from({transform: 'scale(1.5)', opacity: 0, delay: .5})
-            $('.s5-2').from({transform: 'translate(0,50px)', opacity: 0, delay: 1});
-            $('.s5-3').from({transform: 'translate(0,50px)', opacity: 0, delay: 1.5});
-            $('.s5-4').from({transform: 'translate(0,50px)', opacity: 0, delay: 2});
-            $('.page5 .logo1').from({transform: 'translate(0,-20px)', opacity: 0, delay: 2});
+            //$('.s5-1').from({transform: 'scale(1.5)', opacity: 0, delay: .5})
+            //$('.s5-2').from({transform: 'translate(0,50px)', opacity: 0, delay: 1});
+            //$('.s5-3').from({transform: 'translate(0,50px)', opacity: 0, delay: 1.5});
+            //$('.s5-4').from({transform: 'translate(0,50px)', opacity: 0, delay: 2});
+            //$('.page5 .logo1').from({transform: 'translate(0,-20px)', opacity: 0, delay: 2});
 
             break;
         case 5:
 
 
-            $('.s6-1').from({transform: 'translate(0,50px)', opacity: 0, delay: .5});
-            $('.s6-2').from({transform: 'translate(0,50px)', opacity: 0, delay: 1});
-            $('.s6-3').from({transform: 'translate(0,50px)', opacity: 0, delay: 1.5});
-            $('.s6-4').from({transform: 'translate(200px,0)', opacity: 0, delay: 1.5});
-            $('.page5 .logo1').from({transform: 'translate(0,-20px)', opacity: 0, delay: 1.5});
+            //$('.s6-1').from({transform: 'translate(0,50px)', opacity: 0, delay: .5});
+            //$('.s6-2').from({transform: 'translate(0,50px)', opacity: 0, delay: 1});
+            //$('.s6-3').from({transform: 'translate(0,50px)', opacity: 0, delay: 1.5});
+            //$('.s6-4').from({transform: 'translate(200px,0)', opacity: 0, delay: 1.5});
+            //$('.page5 .logo1').from({transform: 'translate(0,-20px)', opacity: 0, delay: 1.5});
 
             break;
         case 6:
 
 
-            $('.s8-1').from({transform: 'translate(0,50px)', opacity: 0, delay: .5});
-            $('.s8-2').from({transform: 'translate(0,50px)', opacity: 0, delay: 1});
-            $('.s8-3').from({transform: 'translate(0,50px)', opacity: 0, delay: 1.5});
-            ;
-            $('.page8 .logo1').from({transform: 'translate(0,-20px)', opacity: 0, delay: 1.5});
+            //$('.s8-1').from({transform: 'translate(0,50px)', opacity: 0, delay: .5});
+            //$('.s8-2').from({transform: 'translate(0,50px)', opacity: 0, delay: 1});
+            //$('.s8-3').from({transform: 'translate(0,50px)', opacity: 0, delay: 1.5});
+            //;
+            //$('.page8 .logo1').from({transform: 'translate(0,-20px)', opacity: 0, delay: 1.5});
 
             break;
         case 7:
 
 
-            $('.s9-1').from({transform: 'translate(0,50px)', opacity: 0, delay: .5});
-            $('.s9-2').from({transform: 'translate(0,50px)', opacity: 0, delay: 1});
-            $('.s9-3').from({transform: 'translate(-200px,0)', opacity: 0, delay: 1.5});
-            ;
-            ;
-            $('.s9-4').from({transform: 'translate(200px,0)', opacity: 0, delay: 1.5});
-            ;
-            $('.page9 .logo1').from({transform: 'translate(0,-20px)', opacity: 0, delay: 1.5});
+            //$('.s9-1').from({transform: 'translate(0,50px)', opacity: 0, delay: .5});
+            //$('.s9-2').from({transform: 'translate(0,50px)', opacity: 0, delay: 1});
+            //$('.s9-3').from({transform: 'translate(-200px,0)', opacity: 0, delay: 1.5});
+            //;
+            //;
+            //$('.s9-4').from({transform: 'translate(200px,0)', opacity: 0, delay: 1.5});
+            //;
+            //$('.page9 .logo1').from({transform: 'translate(0,-20px)', opacity: 0, delay: 1.5});
 
             break;
     }
@@ -420,7 +417,6 @@ $(function () {
      */
 
 
-
     if ($(window).height() < 1008) {
         var scale = 0.8;
         var TranY = 70;
@@ -463,14 +459,6 @@ $('img').each(function () {
     LoadingImg.push($(this).attr('src'));
 
 });
-LoadingImg.push('./images/wx_logo.png');
-LoadingImg.push('./images/wx_3.png');
-LoadingImg.push('./images/wx_2.png');
-LoadingImg.push('./images/wx_1.png');
-LoadingImg.push('./images/up_btn.png');
-LoadingImg.push('./images/bj1.jpg');
-LoadingImg.push('./images/bj1-3.jpg');
-LoadingImg.push('./images/bj1-2.jpg');
 
 
 function HTMLStart() {
@@ -487,34 +475,96 @@ function HTMLStart() {
 }
 
 
-LoadFn(LoadingImg, function () {
+function weixinActivity($el, cache) {
+    Animate_Index = 0;
+    LoadingImg.push('./images/wx_logo.png');
+    LoadingImg.push('./images/wx_3.png');
+    LoadingImg.push('./images/wx_2.png');
+    LoadingImg.push('./images/wx_1.png');
+    LoadingImg.push('./images/up_btn.png');
+    LoadingImg.push('./images/bj1.jpg');
+    LoadingImg.push('./images/bj1-3.jpg');
+    LoadingImg.push('./images/bj1-2.jpg');
+    LoadingImg.push('./images/wx_4.png');
+    LoadingImg.push('./images/wx_5.png');
+    LoadingImg.push('./images/wx_6.png');
+    LoadFn(LoadingImg, function () {
 
-    $('#loading').fadeOut();
-
-
-    HTMLStart();
-
-
-}, function (p) {
-
-
-    //$('#loading .s1-4 i').width( p + '%')
-    $('#loading p').html('LOADING...<br />' + p + '%')
-});
-
-
-
-
+        $('#loading').fadeOut();
 
 
+        HTMLStart();
 
 
+    }, function (p) {
+        //$('#loading .s1-4 i').width( p + '%')
+        $('#loading p').html('LOADING...<br />' + p + '%')
+    });
+
+    $el.wyyyBtn = $('.s1-3');
+    $el.qryyBtn = $('.s2-2');
+    $el.zdlBtn = $('.s3-1 .btn');
 
 
+    $el.wyyyBtn.on('tap', function () {
+        swipeUpFn(1);
+    });
+    $el.qryyBtn.on('tap', function () {
+        swipeUpFn(2);
+    });
+    $el.zdlBtn.on('tap', function(){
+        console.log('zdlBtn');
+    });
+}
 
+function weixinServing($el, cache) {
+    Animate_Index = 0;
+    LoadingImg.push('./images/yy_7.png');
+    LoadingImg.push('./images/wx_logo.png');
+    LoadingImg.push('./images/bj2.jpg');
+    LoadingImg.push('./images/yy_1.png');
+    LoadingImg.push('./images/yy_2.png');
+    LoadingImg.push('./images/bj2-1.jpg');
+    LoadingImg.push('./images/yy_3.png');
+    LoadingImg.push('./images/yy_4.png');
+    LoadingImg.push('./images/star_on.png');
+    LoadingImg.push('./images/star.png');
+    LoadingImg.push('./images/yy_5.png');
+    LoadingImg.push('./images/yy_6.png');
+    LoadFn(LoadingImg, function () {
+        $('#loading').fadeOut();
+        //HTMLStart();
+    }, function (p) {
+        //$('#loading .s1-4 i').width( p + '%')
+        $('#loading p').html('LOADING...<br />' + p + '%')
+    });
 
+    $el.qrsyBtn = $('.s4-2');
+    $el.qrtj1Btn = $('.s5-1 .btn');
+    $el.qrtj2Btn = $('.s6-3 .btn');
+    $el.ljfxBtn = $('.s7-1 .btn1');
+    $el.exitBtn = $('.s7-1 .btn2');
 
+    $el.qrsyBtn.on('tap', function () {
+        swipeUpFn(1);
+    });
+    $el.qrtj1Btn.on('tap', function () {
+        swipeUpFn(2);
+    });
+    $el.qrtj2Btn.on('tap', function () {
+        swipeUpFn(3);
+    });
+    $el.ljfxBtn.on('tap', function () {
+        console.log('ljfxBtn');
+    });
+    $el.exitBtn.on('tap', function () {
+        console.log('exitBtn');
+    });
+}
 
-
-
-
+if (location.href.indexOf('weixin-activity.html') !== -1) {
+    weixinActivity($el, cache);
+}
+if (location.href.indexOf('weixin-serving.html') !== -1) {
+    weixinServing($el, cache);
+}
