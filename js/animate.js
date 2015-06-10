@@ -510,6 +510,10 @@ function weixinActivity($el, cache) {
     $el.qryyBtn = $('.s2-2');
     $el.zdlBtn = $('.s3-1 .btn');
 
+    $el.infoBox = $('.s2-1');
+    $el.dataInput = $('.ipt5', $el.infoBox);
+    $el.timeInput = $('.ipt6', $el.infoBox);
+
 
     $el.wyyyBtn.on('tap', function (evt) {
         var tapLock = $el.wyyyBtn.data('tapLock');
@@ -538,12 +542,62 @@ function weixinActivity($el, cache) {
             $el.wyyyBtn.data('tapLock', false);
         });
     });
-    $el.qryyBtn.on('tap', function () {
-        var res1 = $.ajax({
+
+    var getDate = function(shoppe_code){
+        var handle2 = $.ajax({
             type: "GET",
-            url: ajaxHost+"/is_allow_catch.php",
+            url: ajaxHost+"/get_date.php",
+            data: {
+                shoppe_code: shoppe_code
+            },
             dataType: "json"
         });
+        handle2.then(function(data){
+            console.log(data);
+            if (!data.success) {
+                alert(data.msg);
+                return false;
+            }
+            var options = [];
+            $.each(data.data, function(index, item){
+                var option = ['<option>', item , '</option>'].join('');
+                options.push(option);
+            });
+            $el.dataInput.html(options.join(''));
+        });
+        handle2.fail(netError);
+    };
+
+    var getTime = function(shoppe_code, date){
+        var handle3 = $.ajax({
+            type: "GET",
+            url: ajaxHost+"/get_time.php",
+            data: {
+                shoppe_code: shoppe_code,
+                date: date,
+            },
+            dataType: "json"
+        });
+        handle3.then(function(data){
+            console.log(data);
+            if (!data.success) {
+                alert(data.msg);
+                return false;
+            }
+            var options = [];
+            $.each(data.data, function(index, item){
+                var option = ['<option>', item , '</option>'].join('');
+                options.push(option);
+            });
+            $el.timeInput.html(options.join(''));
+        });
+        handle3.fail(netError);
+    };
+
+    getDate('shoppe_code');
+    getTime('shoppe_code', 'date');
+    $el.qryyBtn.on('tap', function () {
+
         swipeUpFn(2);
     });
     $el.zdlBtn.on('tap', function(){
@@ -704,7 +758,7 @@ function weixinServing($el, cache) {
             },
             dataType: "json"
         });
-        handle3.then(function(data, xhr){
+        handle3.then(function(data){
             //log.debug(data);
             if (!data.success) {
                 alert(data.msg);
