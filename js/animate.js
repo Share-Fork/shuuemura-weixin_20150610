@@ -420,83 +420,6 @@ $(function () {
      */
 
 
-    $$('.s5-3').tap(function () {
-        var name = $('.s5-2 .name');
-        var phone = $('.s5-2 .tel');
-        if ($.trim(name.val()).length == 0 || name.val() == '姓名') {
-            alert('请输入姓名!');
-            return;
-        }
-
-        if (!/^1[3|4|5|6|7|8|9][0-9]\d{8}$/.test(phone.val())) {
-            alert('手机号码输入有误!');
-            return;
-        }
-        ;
-
-
-        $.ajax({
-            type: 'POST',
-            url: 'add_user_info.php',
-            data: {
-                realname: name.val(),
-                mobile: phone.val(),
-                type: 1,
-                code: window.UserCode
-            },
-            dataType: 'json',
-            success: function (res) {
-                if (res.errcode == 0) {
-                    $('.mask , .popbox2').show();
-                } else {
-                    alert(res.msg);
-                }
-            }
-        })
-
-
-    })
-    $$('.s8-3').tap(function () {
-        var name = $('.s8-2 .name');
-        var phone = $('.s8-2 .tel');
-
-        var city = $('select.city');
-        var mendian = $('select.box');
-
-        if ($.trim(name.val()).length == 0 || name.val() == '姓名') {
-            alert('请输入姓名!');
-            return;
-        }
-
-        if (!/^1[3|4|5|6|7|8|9][0-9]\d{8}$/.test(phone.val())) {
-            alert('手机号码输入有误!');
-            return;
-        }
-        ;
-
-        if (city.val() == '请选择城市') {
-
-            alert('请选择城市!');
-            return;
-
-        }
-
-
-        $$('.popbox3 .btn').tap(function () {
-            $('.mask , .popbox3').hide();
-
-        });
-
-        $$('.s6-3').tap(function () {
-
-            //去找茶活动
-
-        });
-
-
-    })
-
-
 
     if ($(window).height() < 1008) {
         var scale = 0.8;
@@ -540,47 +463,14 @@ $('img').each(function () {
     LoadingImg.push($(this).attr('src'));
 
 });
-
-//LoadingImg.push('images/bgj.png');
-//LoadingImg.push('images/logo.png');
-//LoadingImg.push('images/img2.png');
-//LoadingImg.push('images/img2.png');
-//LoadingImg.push('images/img2.png');
-//LoadingImg.push('images/bj1.jpg');
-//LoadingImg.push('images/bj1.jpg');
-//LoadingImg.push('images/img14.png');
-//LoadingImg.push('images/img17.png');
-//LoadingImg.push('images/txt4.png');
-//LoadingImg.push('images/img13.png');
-//LoadingImg.push('images/btn1.png');
-//LoadingImg.push('images/txt1.png');
-//LoadingImg.push('images/box3.png');
-//LoadingImg.push('images/btn2.png');
-//LoadingImg.push('images/img1.png');
-//LoadingImg.push('images/img13.png');
-//LoadingImg.push('images/txt2.png');
-//LoadingImg.push('images/txt6.png');
-//LoadingImg.push('images/img3.png');
-//LoadingImg.push('images/img4.png');
-//LoadingImg.push('images/img5.png');
-//LoadingImg.push('images/txt3.png');
-//LoadingImg.push('images/box5.png');
-//LoadingImg.push('images/btn3.png');
-//LoadingImg.push('images/btn4.png');
-//LoadingImg.push('images/txt5.png');
-//LoadingImg.push('images/box6.png');
-//LoadingImg.push('images/btn5.png');
-//LoadingImg.push('images/img1.png');
-//LoadingImg.push('images/txt7.png');
-//LoadingImg.push('images/box4.png');
-//LoadingImg.push('images/btn2.png');
-//LoadingImg.push('images/box2.png');
-//LoadingImg.push('images/txt8.png');
-//LoadingImg.push('images/btn5.png');
-//LoadingImg.push('images/btn1.png');
-//LoadingImg.push('images/popbox1.png');
-//LoadingImg.push('images/popbox2.png');
-LoadingImg.push('images/bj1.jpg');
+LoadingImg.push('./images/wx_logo.png');
+LoadingImg.push('./images/wx_3.png');
+LoadingImg.push('./images/wx_2.png');
+LoadingImg.push('./images/wx_1.png');
+LoadingImg.push('./images/up_btn.png');
+LoadingImg.push('./images/bj1.jpg');
+LoadingImg.push('./images/bj1-3.jpg');
+LoadingImg.push('./images/bj1-2.jpg');
 
 
 function HTMLStart() {
@@ -598,7 +488,6 @@ function HTMLStart() {
 
 
 LoadFn(LoadingImg, function () {
-    console.log('run!');
 
     $('#loading').fadeOut();
 
