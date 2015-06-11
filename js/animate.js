@@ -511,9 +511,13 @@ function weixinActivity($el, cache) {
     $el.zdlBtn = $('.s3-1 .btn');
 
     $el.infoBox = $('.s2-1');
-    $el.dataInput = $('.ipt5', $el.infoBox);
+    $el.nameInput = $('.ipt', $el.infoBox);
+    $el.phoneInput = $('.ipt2', $el.infoBox);
+    $el.cityInput = $('.ipt3', $el.infoBox);
+    $el.shoppeInput = $('.ipt4', $el.infoBox);
+    $el.dateInput = $('.ipt5', $el.infoBox);
     $el.timeInput = $('.ipt6', $el.infoBox);
-
+    $el.perplexInput = $('.ipt7', $el.infoBox);
 
     $el.wyyyBtn.on('tap', function (evt) {
         var tapLock = $el.wyyyBtn.data('tapLock');
@@ -563,7 +567,7 @@ function weixinActivity($el, cache) {
                 var option = ['<option>', item , '</option>'].join('');
                 options.push(option);
             });
-            $el.dataInput.html(options.join(''));
+            $el.dateInput.html(options.join(''));
         });
         handle2.fail(netError);
     };
@@ -597,8 +601,72 @@ function weixinActivity($el, cache) {
     getDate('shoppe_code');
     getTime('shoppe_code', 'date');
     $el.qryyBtn.on('tap', function () {
+        var name, phone, city, shoppe, date, time, perplex;
+        name  = $el.nameInput.val();
+        name = $.trim(name);
+        if(!name.length){
+            alert('请输入姓名!');
+            return false;
+        }
+        phone = $el.phoneInput.val();
+        phone = $.trim(phone);
+        if(!phone.length){
+            alert('请输入手机号!');
+            return false;
+        }
+        city = $el.cityInput.val();
+        city = $.trim(city);
+        if(!city.length){
+            alert('请输入所在城市!');
+            return false;
+        }
+        shoppe = $el.shoppeInput.val();
+        shoppe = $.trim(shoppe);
+        if(!shoppe.length){
+            alert('请输入专柜名称!');
+            return false;
+        }
+        date = $el.dateInput.val();
+        date = $.trim(date);
+        if(!date.length){
+            alert('请输入日期!');
+            return false;
+        }
+        time = $el.timeInput.val();
+        time = $.trim(time);
+        if(!time.length){
+            alert('请输入时间!');
+            return false;
+        }
+        perplex = $el.perplexInput.val();
+        perplex = $.trim(perplex);
+        if(!perplex.length){
+            alert('请输入困扰!');
+            return false;
+        }
 
-        swipeUpFn(2);
+        var handle4 = $.ajax({
+            type: "GET", //POST
+            url: ajaxHost+"/add_book_ticket.php",
+            data: {
+                book_name: 'xxx',
+                book_user: name,
+                book_user_phone: phone,
+                book_shoppe: shoppe,
+                book_date: date,
+                book_time: time
+            },
+            dataType: "json"
+        });
+        handle4.then(function(data){
+            if (!data.success) {
+                alert(data.msg);
+                return false;
+            }
+            swipeUpFn(2);
+        });
+        handle4.fail(netError);
+        //swipeUpFn(2);
     });
     $el.zdlBtn.on('tap', function(){
         if(WeixinJSBridge){
