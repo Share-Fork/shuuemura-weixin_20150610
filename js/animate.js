@@ -480,6 +480,12 @@ var  netError = function(){
     alert('网络异常!');
 };
 
+swal.setDefaults({
+    animation: false,
+    confirmButtonColor: '#FAC1CE',
+    confirmButtonText: '确认'
+});
+
 function weixinActivity($el, cache) {
     Animate_Index = 0;
     LoadingImg.push('./images/wx_logo.png');
@@ -518,8 +524,9 @@ function weixinActivity($el, cache) {
     $el.dateInput = $('.ipt5', $el.infoBox);
     $el.timeInput = $('.ipt6', $el.infoBox);
     $el.perplexInput = $('.ipt7', $el.infoBox);
-
     $el.wyyyBtn.on('tap', function (evt) {
+        swal('你好, 测试!', '', 'success');
+        return false;
         var tapLock = $el.wyyyBtn.data('tapLock');
         if(tapLock){
             return false;
