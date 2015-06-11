@@ -105,32 +105,20 @@ var Animate = {
 };
 var $el = {};
 var cache = {};
+swal.setDefaults({
+    animation: false,
+    confirmButtonColor: '#FAC1CE',
+    confirmButtonText: '确认'
+});
 
 if (Zhu._weixin && Zhu._Android) {
 
 }
 
 
-/*if(Zhu._IsPC) $(window).resize(resize) , resize();
- function resize(){
- if($(window).width() > $(window).height()) {
- $("#horizontal").show();
- }else
- {
- $("#horizontal").hide();
- }
- };
- */
-
-
 $(document).on('touchmove', function (ev) {
     ev.preventDefault();
 }, false);
-
-
-$(window).resize(resize) , resize();
-function resize() {
-};
 
 
 var Animate_Index = 0;
@@ -149,85 +137,31 @@ var x, y, z, last_x, last_y, last_z;
 /*function deviceMotionHandler(eventData) {
 
 
-    var acceleration = eventData.accelerationIncludingGravity;
-    var curTime = new Date().getTime();
-    if ((curTime - lastUpdate) > 100) {
-        var diffTime = (curTime - lastUpdate);
-        lastUpdate = curTime;
-        x = acceleration.x;
-        y = acceleration.y;
-        z = acceleration.z;
-        var speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
-        if (speed > SHAKE_THRESHOLD) {
+ var acceleration = eventData.accelerationIncludingGravity;
+ var curTime = new Date().getTime();
+ if ((curTime - lastUpdate) > 100) {
+ var diffTime = (curTime - lastUpdate);
+ lastUpdate = curTime;
+ x = acceleration.x;
+ y = acceleration.y;
+ z = acceleration.z;
+ var speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
+ if (speed > SHAKE_THRESHOLD) {
 
-            //if(!window.LOADEND) return;
-            if (!BSTOP) return;
-            BSTOP = false;
-
-
-            YaoYiYao();
+ //if(!window.LOADEND) return;
+ if (!BSTOP) return;
+ BSTOP = false;
 
 
-        }
-        last_x = x;
-        last_y = y;
-        last_z = z;
-    }
-};*/
+ YaoYiYao();
 
 
-function YaoYiYao() {
-
-
-    $('#sound0')[0].play();
-
-    //window.removeEventListener('devicemotion', deviceMotionHandler, false);
-    if (window.NotCode) {
-
-        //$.ajax({
-        //    type: 'POST',
-        //    url: 'get_free.php',
-        //    success: function () {
-        //
-        //        setTimeout(function () {
-        //            swipeUpFn(6);
-        //        }, 1000)
-        //
-        //
-        //    }
-        //})
-
-
-    } else {
-        //$.ajax({
-        //    type: 'POST',
-        //    url: 'get_prizes.php',
-        //    dataType: "json",
-        //    data: {
-        //        code: window.UserCode
-        //    },
-        //    success: function (res) {
-        //        if (res.success == true) {
-        //
-        //            setTimeout(function () {
-        //                swipeUpFn(3);
-        //            }, 1000)
-        //
-        //            //中奖
-        //        } else {
-        //
-        //            setTimeout(function () {
-        //                swipeUpFn(5);
-        //            }, 1000)
-        //            //未中奖
-        //        }
-        //    }
-        //})
-
-    }
-
-
-}
+ }
+ last_x = x;
+ last_y = y;
+ last_z = z;
+ }
+ };*/
 
 
 function AnimateTween() {
@@ -383,55 +317,6 @@ function swipeDownFn(index) {
 };
 
 
-$(function () {
-
-
-
-
-
-
-    //$.ajax({
-    //	type:'GET',
-    //	url:'get_user_info',
-    //	dataType:"json",
-    //	success:function ( res ){
-    //
-    //		//if(res.errcode == 1 && res.msg == '用户尚未授权')	location.href = '../sessiontest.php?retURL=http://112.124.70.247/weoper/wesite/shuuemura/shuuemura1501/oilgift/'
-    //
-    //		if(res.errcode == 1 && res.msg == '用户尚未授权')	location.href = '../index.php?retURL=http://112.124.70.247/weoper/wesite/shuuemura/shuuemura1501/oilgift/'
-    //	}
-    //})
-
-
-    $('a[href="#"]').attr('href', 'javascript:;');
-    /*$$('.box-content').bind('swipeUp' , function (){
-     if(!Animate_isSwipe) return;
-     swipeUpFn();
-
-     }).bind('swipeDown' , function (){
-
-     if(!Animate_isSwipe) return;
-     swipeDownFn();
-
-
-     });
-     */
-
-
-    if ($(window).height() < 1008) {
-        var scale = 0.8;
-        var TranY = 70;
-        var b = 1008 - $(window).height();
-
-
-        $('.s3-4 , .s2-4 , .s6-4').css('transform', 'scale(' + ( 1 - b / 180 * 0.2) + ') translate(0,' + ((b / 180) * TranY) + 'px)')
-    }
-    ;
-
-
-});
-
-
 function LoadFn(arr, fn, fn2) {
     var loader = new PxLoader();
     for (var i = 0; i < arr.length; i++) {
@@ -454,13 +339,10 @@ function LoadFn(arr, fn, fn2) {
 
 var LoadingImg = [];
 
-$('img').each(function () {
 
-    if (!$(this).attr('src')) return;
-    LoadingImg.push($(this).attr('src'));
-
+$.each(document.images, function (index, item) {
+    LoadingImg.push(item.src);
 });
-
 
 function HTMLStart() {
 
@@ -476,15 +358,11 @@ function HTMLStart() {
 }
 
 var ajaxHost = 'http://192.168.1.124/test/';
-var  netError = function(){
-    alert('网络异常!');
+var netError = function () {
+    swal('网络异常!', '', 'error');
 };
 
-swal.setDefaults({
-    animation: false,
-    confirmButtonColor: '#FAC1CE',
-    confirmButtonText: '确认'
-});
+
 
 function weixinActivity($el, cache) {
     Animate_Index = 0;
@@ -525,53 +403,53 @@ function weixinActivity($el, cache) {
     $el.timeInput = $('.ipt6', $el.infoBox);
     $el.perplexInput = $('.ipt7', $el.infoBox);
     $el.wyyyBtn.on('tap', function (evt) {
-        swal('你好, 测试!', '', 'success');
+
         return false;
         var tapLock = $el.wyyyBtn.data('tapLock');
-        if(tapLock){
+        if (tapLock) {
             return false;
         }
         $el.wyyyBtn.data('tapLock', true);
         var handle1 = $.ajax({
             type: "GET",
-            url: ajaxHost+"/is_allow_catch.php",
+            url: ajaxHost + "/is_allow_catch.php",
             dataType: "json"
         });
-        handle1.then(function(data, xhr){
-            if(data.success){
-                if(data.data === 1){
+        handle1.then(function (data, xhr) {
+            if (data.success) {
+                if (data.data === 1) {
                     swipeUpFn(1);
-                }else{
+                } else {
                     location.href = ajaxHost;
                 }
-            }else{
-                alert(data.msg);
+            } else {
+                swal(data.msg, '', 'error');
             }
         });
         handle1.fail(netError);
-        handle1.done(function(){
+        handle1.done(function () {
             $el.wyyyBtn.data('tapLock', false);
         });
     });
 
-    var getDate = function(shoppe_code){
+    var getDate = function (shoppe_code) {
         var handle2 = $.ajax({
             type: "GET",
-            url: ajaxHost+"/get_date.php",
+            url: ajaxHost + "/get_date.php",
             data: {
                 shoppe_code: shoppe_code
             },
             dataType: "json"
         });
-        handle2.then(function(data){
+        handle2.then(function (data) {
             console.log(data);
             if (!data.success) {
-                alert(data.msg);
+                swal(data.msg, '', 'error');
                 return false;
             }
             var options = [];
-            $.each(data.data, function(index, item){
-                var option = ['<option>', item , '</option>'].join('');
+            $.each(data.data, function (index, item) {
+                var option = ['<option>', item, '</option>'].join('');
                 options.push(option);
             });
             $el.dateInput.html(options.join(''));
@@ -579,25 +457,25 @@ function weixinActivity($el, cache) {
         handle2.fail(netError);
     };
 
-    var getTime = function(shoppe_code, date){
+    var getTime = function (shoppe_code, date) {
         var handle3 = $.ajax({
             type: "GET",
-            url: ajaxHost+"/get_time.php",
+            url: ajaxHost + "/get_time.php",
             data: {
                 shoppe_code: shoppe_code,
                 date: date,
             },
             dataType: "json"
         });
-        handle3.then(function(data){
+        handle3.then(function (data) {
             console.log(data);
             if (!data.success) {
-                alert(data.msg);
+                swal(data.msg, '', 'error');
                 return false;
             }
             var options = [];
-            $.each(data.data, function(index, item){
-                var option = ['<option>', item , '</option>'].join('');
+            $.each(data.data, function (index, item) {
+                var option = ['<option>', item, '</option>'].join('');
                 options.push(option);
             });
             $el.timeInput.html(options.join(''));
@@ -609,52 +487,52 @@ function weixinActivity($el, cache) {
     getTime('shoppe_code', 'date');
     $el.qryyBtn.on('tap', function () {
         var name, phone, city, shoppe, date, time, perplex;
-        name  = $el.nameInput.val();
+        name = $el.nameInput.val();
         name = $.trim(name);
-        if(!name.length){
-            alert('请输入姓名!');
+        if (!name.length) {
+            swal('请输入姓名!', '', 'warning');
             return false;
         }
         phone = $el.phoneInput.val();
         phone = $.trim(phone);
-        if(!phone.length){
-            alert('请输入手机号!');
+        if (!phone.length) {
+            swal('请输入手机号!', '', 'warning');
             return false;
         }
         city = $el.cityInput.val();
         city = $.trim(city);
-        if(!city.length){
-            alert('请输入所在城市!');
+        if (!city.length) {
+            swal('请输入所在城市!', '', 'warning');
             return false;
         }
         shoppe = $el.shoppeInput.val();
         shoppe = $.trim(shoppe);
-        if(!shoppe.length){
-            alert('请输入专柜名称!');
+        if (!shoppe.length) {
+            swal('请输入专柜名称!', '', 'warning');
             return false;
         }
         date = $el.dateInput.val();
         date = $.trim(date);
-        if(!date.length){
-            alert('请输入日期!');
+        if (!date.length) {
+            swal('请输入日期!', '', 'warning');
             return false;
         }
         time = $el.timeInput.val();
         time = $.trim(time);
-        if(!time.length){
-            alert('请输入时间!');
+        if (!time.length) {
+            swal('请输入时间!', '', 'warning');
             return false;
         }
         perplex = $el.perplexInput.val();
         perplex = $.trim(perplex);
-        if(!perplex.length){
-            alert('请输入困扰!');
+        if (!perplex.length) {
+            swal('请输入困扰!', '', 'warning');
             return false;
         }
 
         var handle4 = $.ajax({
             type: "GET", //POST
-            url: ajaxHost+"/add_book_ticket.php",
+            url: ajaxHost + "/add_book_ticket.php",
             data: {
                 book_name: 'xxx',
                 book_user: name,
@@ -665,9 +543,9 @@ function weixinActivity($el, cache) {
             },
             dataType: "json"
         });
-        handle4.then(function(data){
+        handle4.then(function (data) {
             if (!data.success) {
-                alert(data.msg);
+                swal(data.msg, '', 'error');
                 return false;
             }
             swipeUpFn(2);
@@ -675,8 +553,8 @@ function weixinActivity($el, cache) {
         handle4.fail(netError);
         //swipeUpFn(2);
     });
-    $el.zdlBtn.on('tap', function(){
-        if(WeixinJSBridge){
+    $el.zdlBtn.on('tap', function () {
+        if (WeixinJSBridge) {
             WeixinJSBridge.call('closeWindow');
         }
         //log.debug('zdlBtn');
@@ -716,10 +594,10 @@ function weixinServing($el, cache) {
     $el.starInput = $('.s6-2 .star');
     $el.proposeInput = $('.s6-3 textarea');
 
-    var initHandle1 = function(){
+    var initHandle1 = function () {
         var handle1 = $.ajax({
             type: "GET", //POST
-            url: ajaxHost+"get_book_ticket_info.php",
+            url: ajaxHost + "get_book_ticket_info.php",
             data: {
                 book_id: 'xxx'
             },
@@ -728,7 +606,7 @@ function weixinServing($el, cache) {
         handle1.then(function (data, xhr) {
             //log.debug(data);
             if (!data.success) {
-                alert(data.msg);
+                swal(data.msg, '', 'error');
                 return false;
             }
             $el.infoList.eq(0).text(data.data[0].book_user);
@@ -741,7 +619,7 @@ function weixinServing($el, cache) {
             var qrsyBtnFunc;
             if (data.data[0].is_execute === 1) {
                 qrsyBtnFunc = function () {
-                    alert('您已经兑换!');
+                    swal('您已经兑换!', '', 'warning');
                 };
             } else if (data.data[0].is_execute === 0) {
                 qrsyBtnFunc = function () {
@@ -749,7 +627,7 @@ function weixinServing($el, cache) {
                 };
             } else {
                 qrsyBtnFunc = function () {
-                    alert('兑换异常!');
+                    swal('兑换异常!', '', 'warning');
                 };
             }
             $el.qrsyBtn.on('tap', qrsyBtnFunc);
@@ -759,71 +637,71 @@ function weixinServing($el, cache) {
     initHandle1();
 
     $el.qrtj1Btn.on('tap', function () {
-        var tapLock =  $el.qrtj1Btn.data('tapLock');
-        if(tapLock){
+        var tapLock = $el.qrtj1Btn.data('tapLock');
+        if (tapLock) {
             return false;
         }
         var baCode = $el.baCodeInput.val();
         baCode = $.trim(baCode);
-        if(!baCode.length){
-            alert('请输入 Ba Code!');
+        if (!baCode.length) {
+            swal('请输入 Ba Code!', '', 'warning');
             return false;
         }
 
         $el.qrtj1Btn.data('tapLock', true);
         var handle2 = $.ajax({
             type: "GET", //POST
-            url: ajaxHost+"update_book_ticket.php",
+            url: ajaxHost + "update_book_ticket.php",
             data: {
                 book_id: 'xxx',
                 ba_code: baCode
             },
             dataType: "json"
         });
-        handle2.then(function(data, xhr){
+        handle2.then(function (data, xhr) {
             //log.debug(data);
             if (!data.success) {
-                alert(data.msg);
+                swal(data.msg, '', 'error');
                 return false;
             }
             swipeUpFn(2);
             cache.baCode = baCode;
         });
         handle2.fail(netError);
-        handle2.done(function(){
+        handle2.done(function () {
             $el.qrtj1Btn.data('tapLock', false);
         });
     });
-    $el.starInput.on('tap', function(){
+    $el.starInput.on('tap', function () {
         var $self = $(this);
         var starIndex = $self.index();
         $el.starInput.removeClass('on');
-        for(var i = 0; i <= starIndex; i++){
+        for (var i = 0; i <= starIndex; i++) {
             $el.starInput.eq(i).addClass('on');
         }
-        $el.starInput.data('starNum', starIndex+1);
+        $el.starInput.data('starNum', starIndex + 1);
     });
     $el.qrtj2Btn.on('tap', function () {
-        var tapLock =  $el.qrtj2Btn.data('tapLock');
-        if(tapLock){
+        var tapLock = $el.qrtj2Btn.data('tapLock');
+        if (tapLock) {
             return false;
         }
-        var starNum =  $el.starInput.data('starNum');
-        if(!starNum){
-            alert('请评星!');
+        var starNum = $el.starInput.data('starNum');
+        if (!starNum) {
+            swal('请评星!', '', 'warning');
             return false;
         }
         var propose = $el.proposeInput.val();
         propose = $.trim(propose);
-        if(!propose.length){
-            alert('请输入建议!');
+        if (!propose.length) {
+            swal('请输入建议!', '', 'warning');
             return false;
         }
 
         $el.qrtj2Btn.data('tapLock', true);
         var handle3 = $.ajax({
             type: "GET", //POST
-            url: ajaxHost+"add_ba_score.php",
+            url: ajaxHost + "add_ba_score.php",
             data: {
                 book_id: 'xxx',
                 book_name: 'xxx',
@@ -833,16 +711,16 @@ function weixinServing($el, cache) {
             },
             dataType: "json"
         });
-        handle3.then(function(data){
+        handle3.then(function (data) {
             //log.debug(data);
             if (!data.success) {
-                alert(data.msg);
+                swal(data.msg, '', 'error');
                 return false;
             }
             swipeUpFn(3);
         });
         handle3.fail(netError);
-        handle3.done(function(){
+        handle3.done(function () {
             $el.qrtj2Btn.data('tapLock', false);
         });
         //swipeUpFn(3);
@@ -851,7 +729,7 @@ function weixinServing($el, cache) {
         log.debug('ljfxBtn');
     });
     $el.exitBtn.on('tap', function () {
-        if(WeixinJSBridge){
+        if (WeixinJSBridge) {
             WeixinJSBridge.call('closeWindow');
         }
         //log.debug('exitBtn');
