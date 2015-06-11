@@ -357,26 +357,26 @@ function HTMLStart() {
 
 }
 
-var ajaxHost = 'http://192.168.1.124/test/';
+var ajaxHost = 'http://115.29.100.77/pangwenli/3rdsites/shuuemura1501';
 var netError = function () {
     swal('网络异常!', '', 'error');
 };
-
+var imgPath = './assets/images/';
 
 
 function weixinActivity($el, cache) {
     Animate_Index = 0;
-    LoadingImg.push('./images/wx_logo.png');
-    LoadingImg.push('./images/wx_3.png');
-    LoadingImg.push('./images/wx_2.png');
-    LoadingImg.push('./images/wx_1.png');
-    LoadingImg.push('./images/up_btn.png');
-    LoadingImg.push('./images/bj1.jpg');
-    LoadingImg.push('./images/bj1-3.jpg');
-    LoadingImg.push('./images/bj1-2.jpg');
-    LoadingImg.push('./images/wx_4.png');
-    LoadingImg.push('./images/wx_5.png');
-    LoadingImg.push('./images/wx_6.png');
+    LoadingImg.push(imgPath + 'wx_logo.png');
+    LoadingImg.push(imgPath + 'wx_3.png');
+    LoadingImg.push(imgPath + 'wx_2.png');
+    LoadingImg.push(imgPath + 'wx_1.png');
+    LoadingImg.push(imgPath + 'up_btn.png');
+    LoadingImg.push(imgPath + 'bj1.jpg');
+    LoadingImg.push(imgPath + 'bj1-3.jpg');
+    LoadingImg.push(imgPath + 'bj1-2.jpg');
+    LoadingImg.push(imgPath + 'wx_4.png');
+    LoadingImg.push(imgPath + 'wx_5.png');
+    LoadingImg.push(imgPath + 'wx_6.png');
     LoadFn(LoadingImg, function () {
 
         $('#loading').fadeOut();
@@ -403,8 +403,6 @@ function weixinActivity($el, cache) {
     $el.timeInput = $('.ipt6', $el.infoBox);
     $el.perplexInput = $('.ipt7', $el.infoBox);
     $el.wyyyBtn.on('tap', function (evt) {
-
-        return false;
         var tapLock = $el.wyyyBtn.data('tapLock');
         if (tapLock) {
             return false;
@@ -416,6 +414,7 @@ function weixinActivity($el, cache) {
             dataType: "json"
         });
         handle1.then(function (data, xhr) {
+            console.log(data);
             if (data.success) {
                 if (data.data === 1) {
                     swipeUpFn(1);
@@ -423,7 +422,7 @@ function weixinActivity($el, cache) {
                     location.href = ajaxHost;
                 }
             } else {
-                swal(data.msg, '', 'error');
+                swal(decodeURIComponent(data.msg), '', 'error');
             }
         });
         handle1.fail(netError);
@@ -444,7 +443,7 @@ function weixinActivity($el, cache) {
         handle2.then(function (data) {
             console.log(data);
             if (!data.success) {
-                swal(data.msg, '', 'error');
+                swal(decodeURIComponent(data.msg), '', 'error');
                 return false;
             }
             var options = [];
@@ -470,7 +469,7 @@ function weixinActivity($el, cache) {
         handle3.then(function (data) {
             console.log(data);
             if (!data.success) {
-                swal(data.msg, '', 'error');
+                swal(decodeURIComponent(data.msg), '', 'error');
                 return false;
             }
             var options = [];
@@ -483,8 +482,8 @@ function weixinActivity($el, cache) {
         handle3.fail(netError);
     };
 
-    getDate('shoppe_code');
-    getTime('shoppe_code', 'date');
+    //getDate('shoppe_code');
+    //getTime('shoppe_code', 'date');
     $el.qryyBtn.on('tap', function () {
         var name, phone, city, shoppe, date, time, perplex;
         name = $el.nameInput.val();
@@ -545,7 +544,7 @@ function weixinActivity($el, cache) {
         });
         handle4.then(function (data) {
             if (!data.success) {
-                swal(data.msg, '', 'error');
+                swal(decodeURIComponent(data.msg), '', 'error');
                 return false;
             }
             swipeUpFn(2);
@@ -563,18 +562,18 @@ function weixinActivity($el, cache) {
 
 function weixinServing($el, cache) {
     Animate_Index = 0;
-    LoadingImg.push('./images/yy_7.png');
-    LoadingImg.push('./images/wx_logo.png');
-    LoadingImg.push('./images/bj2.jpg');
-    LoadingImg.push('./images/yy_1.png');
-    LoadingImg.push('./images/yy_2.png');
-    LoadingImg.push('./images/bj2-1.jpg');
-    LoadingImg.push('./images/yy_3.png');
-    LoadingImg.push('./images/yy_4.png');
-    LoadingImg.push('./images/star_on.png');
-    LoadingImg.push('./images/star.png');
-    LoadingImg.push('./images/yy_5.png');
-    LoadingImg.push('./images/yy_6.png');
+    LoadingImg.push(imgPath + 'yy_7.png');
+    LoadingImg.push(imgPath + 'wx_logo.png');
+    LoadingImg.push(imgPath + 'bj2.jpg');
+    LoadingImg.push(imgPath + 'yy_1.png');
+    LoadingImg.push(imgPath + 'yy_2.png');
+    LoadingImg.push(imgPath + 'bj2-1.jpg');
+    LoadingImg.push(imgPath + 'yy_3.png');
+    LoadingImg.push(imgPath + 'yy_4.png');
+    LoadingImg.push(imgPath + 'star_on.png');
+    LoadingImg.push(imgPath + 'star.png');
+    LoadingImg.push(imgPath + 'yy_5.png');
+    LoadingImg.push(imgPath + 'yy_6.png');
     LoadFn(LoadingImg, function () {
         $('#loading').fadeOut();
         //HTMLStart();
@@ -606,7 +605,7 @@ function weixinServing($el, cache) {
         handle1.then(function (data, xhr) {
             //log.debug(data);
             if (!data.success) {
-                swal(data.msg, '', 'error');
+                swal(decodeURIComponent(data.msg), '', 'error');
                 return false;
             }
             $el.infoList.eq(0).text(data.data[0].book_user);
@@ -661,7 +660,7 @@ function weixinServing($el, cache) {
         handle2.then(function (data, xhr) {
             //log.debug(data);
             if (!data.success) {
-                swal(data.msg, '', 'error');
+                swal(decodeURIComponent(data.msg), '', 'error');
                 return false;
             }
             swipeUpFn(2);
@@ -714,7 +713,7 @@ function weixinServing($el, cache) {
         handle3.then(function (data) {
             //log.debug(data);
             if (!data.success) {
-                swal(data.msg, '', 'error');
+                swal(decodeURIComponent(data.msg), '', 'error');
                 return false;
             }
             swipeUpFn(3);
