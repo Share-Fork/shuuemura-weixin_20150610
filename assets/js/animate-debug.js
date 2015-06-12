@@ -363,7 +363,7 @@ var netError = function () {
 };
 var imgPath = './assets/images/';
 
-//$('<div></div>').load('http://115.29.100.77/pangwenli/3rdsites/shuuemura1501/sessiontest.php');
+$('<div></div>').load('http://115.29.100.77/pangwenli/3rdsites/shuuemura1501/sessiontest.php');
 
 function weixinActivity($el, cache) {
     cache.book_name = 1;
@@ -412,7 +412,7 @@ function weixinActivity($el, cache) {
     });
 
     var isauth = function (callback) {
-        var handle = $.ajax({
+       /* var handle = $.ajax({
             type: "GET",
             url: "http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/isauth.php",
             dataType: "json"
@@ -428,10 +428,10 @@ function weixinActivity($el, cache) {
                 callback();
             }
         });
-        handle.fail(netError);
+        handle.fail(netError);*/
 
 
-        /*var dtd = $.Deferred();
+        var dtd = $.Deferred();
         var data = {
             "result": "success",
             "jsonResponse": {
@@ -470,12 +470,12 @@ function weixinActivity($el, cache) {
         if (callback) {
             callback();
         }
-*/
+
 
         return handle;
     };
     var shoppeData = function (callback) {
-        var handle = $.ajax({
+        /*var handle = $.ajax({
             type: "GET",
             url: "http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/reservation/js/data.json",
             dataType: "json"
@@ -487,9 +487,9 @@ function weixinActivity($el, cache) {
                  callback();
             }
         });
-        handle.fail(netError);
+        handle.fail(netError);*/
 
-        /*var dtd = $.Deferred();
+        var dtd = $.Deferred();
         var data = [
             {
                 "city": "北京",
@@ -832,8 +832,7 @@ function weixinActivity($el, cache) {
         cache.shoppeData = data;
         if (callback) {
             callback();
-        }*/
-
+        }
         return handle;
     };
     var getDate = function (shoppe_code) {
@@ -900,10 +899,10 @@ function weixinActivity($el, cache) {
         });
         handle1.then(function (data, xhr) {
             console.log(data);
-            if (data.success) {
-            //if (data.success = true) {
-                if (data.data === 1) {
-                //if (data.data = 1) {
+            //if (data.success) {
+            if (data.success = true) {
+                //if (data.data === 1) {
+                if (data.data = 1) {
                     $.when(
                         isauth(function () {
                             cache.phone = cache.isauth.more.mobile;
@@ -973,7 +972,7 @@ function weixinActivity($el, cache) {
     });
 
     $el.qryyBtn.on('tap', function () {
-        var perplex;
+        var name, phone, city, shoppe, date, time, perplex;
         cache.name = $el.nameInput.val();
         cache.name = $.trim(cache.name);
         if (!cache.name.length) {
@@ -1009,7 +1008,7 @@ function weixinActivity($el, cache) {
             return false;
         }
 
-        var handle4 = $.ajax({
+        /*var handle4 = $.ajax({
             type: "POST", //POST
             url: ajaxHost + "add_book_ticket.php",
             data: {
@@ -1029,9 +1028,8 @@ function weixinActivity($el, cache) {
             }
             swipeUpFn(2);
         });
-        handle4.fail(netError);
-
-        //swipeUpFn(2);
+        handle4.fail(netError);*/
+        swipeUpFn(2);
     });
     $el.zdlBtn.on('tap', function () {
         if (WeixinJSBridge) {
@@ -1118,14 +1116,14 @@ function weixinServing($el, cache) {
         });
         handle1.fail(netError);
     };
-    initHandle1();
+    //initHandle1();
 
     /**
      * debug
      */
-    /*$el.qrsyBtn.on('tap', function(){
+    $el.qrsyBtn.on('tap', function(){
         swipeUpFn(1);
-    });*/
+    });
 
     $el.qrtj1Btn.on('tap', function () {
         var tapLock = $el.qrtj1Btn.data('tapLock');
@@ -1139,7 +1137,7 @@ function weixinServing($el, cache) {
             return false;
         }
 
-        $el.qrtj1Btn.data('tapLock', true);
+        /*$el.qrtj1Btn.data('tapLock', true);
         var handle2 = $.ajax({
             type: "POST", //POST
             url: ajaxHost + "update_book_ticket.php",
@@ -1160,9 +1158,9 @@ function weixinServing($el, cache) {
         handle2.fail(netError);
         handle2.done(function () {
             $el.qrtj1Btn.data('tapLock', false);
-        });
+        });*/
 
-        /*swipeUpFn(2);*/
+        swipeUpFn(2);
     });
     $el.starInput.on('tap', function () {
         var $self = $(this);
@@ -1190,7 +1188,7 @@ function weixinServing($el, cache) {
             return false;
         }
 
-        $el.qrtj2Btn.data('tapLock', true);
+        /*$el.qrtj2Btn.data('tapLock', true);
         var handle3 = $.ajax({
             type: "POST", //POST
             url: ajaxHost + "add_ba_score.php",
@@ -1214,12 +1212,8 @@ function weixinServing($el, cache) {
         handle3.fail(netError);
         handle3.done(function () {
             $el.qrtj2Btn.data('tapLock', false);
-        });
-
-        /**
-         * debug
-         */
-        /*swipeUpFn(3);*/
+        });*/
+        swipeUpFn(3);
     });
     $el.ljfxBtn.on('tap', function () {
         $el.sharePop.show();
