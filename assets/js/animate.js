@@ -644,6 +644,8 @@ function weixinActivity($el, cache) {
 }
 
 function weixinServing($el, cache) {
+    cache.book_name = 1;
+
     Animate_Index = 0;
     LoadingImg.push(imgPath + 'yy_7.png');
     LoadingImg.push(imgPath + 'wx_logo.png');
@@ -679,7 +681,7 @@ function weixinServing($el, cache) {
     var initHandle1 = function () {
         var handle1 = $.ajax({
             type: "GET", //POST
-            url: ajaxHost + "get_book_ticket_info.php",
+            url: ajaxHost + "/get_book_ticket_info.php",
             data: {
                 book_id: 'xxx'
             },
