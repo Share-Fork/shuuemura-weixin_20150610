@@ -218,7 +218,17 @@ body, input {
     width: 176px;
     height: 71px;
     left: 50%;
-    margin-left: -88px;
+    margin-left: -188px;
+    bottom: 0;
+}
+
+.s2-3{
+    position: absolute;
+    background: url(../images/wx_5.png) no-repeat;
+    width: 176px;
+    height: 71px;
+    left: 50%;
+    margin-left: 12px;
     bottom: 0;
 }
 

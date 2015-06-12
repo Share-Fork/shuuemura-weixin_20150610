@@ -465,6 +465,7 @@ function weixinActivity($el, cache) {
     $el.goto = $('.s1-4');
     $el.wyyyBtn = $('.s1-3');
     $el.qryyBtn = $('.s2-2');
+    $el.wzxcBtn = $('.s2-3');
     $el.zdlBtn = $('.s3-1 .btn');
 
     $el.infoBox = $('.s2-1');
@@ -901,7 +902,7 @@ function weixinActivity($el, cache) {
         $el.wyyyBtn.data('tapLock', true);
         var handle1 = $.ajax({
             type: "GET",
-            url: ajaxHost + "../is_allow_catch.php",
+            url: ajaxHost + "/is_allow_catch.php",
             dataType: "json"
         });
         handle1.then(function (data, xhr) {
@@ -930,12 +931,7 @@ function weixinActivity($el, cache) {
                     swipeUpFn(1);
                 });
             } else {
-                var url = [
-                    'http://oper.weoper.com/weoper/mobile.php?act=entry&eid=156&weid=3&wxref=mp.weixin.qq.com',
-                    '&retURL=',
-                    encodeURIComponent(window.location.href),
-                    '#wechat_redirect'].join('');
-                location.href = url;
+                location.href = 'http://oper.weoper.com/weoper/mobile.php?act=module&name=memberbind&do=Memberbind&weid=3&yswf_entry=11';
             }
         });
         handle1.fail(netError);
@@ -1015,7 +1011,8 @@ function weixinActivity($el, cache) {
                 book_user_phone: cache.phone,
                 book_shoppe: cache.shoppeCode,
                 book_date: cache.date,
-                book_time: cache.time
+                book_time: cache.time,
+                question: perplex
             },
             dataType: "json"
         });
