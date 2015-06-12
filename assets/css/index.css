@@ -142,8 +142,8 @@ body, input {
 .s1-4 {
     position: absolute;
     background: url(../images/up_btn.png) no-repeat;
-    width: 46px;
-    height: 29px;
+    width: 90px;
+    height: 60px;
     left: 50%;
     margin-left: -23px;
     bottom: 10px;

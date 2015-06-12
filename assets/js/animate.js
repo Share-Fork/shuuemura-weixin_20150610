@@ -357,7 +357,7 @@ function HTMLStart() {
 
 }
 
-var ajaxHost = 'http://115.29.100.77/pangwenli/3rdsites/shuuemura1501/reservation/';
+var ajaxHost = 'http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/reservation/';
 var netError = function () {
     swal('网络异常!', '', 'error');
 };
@@ -365,7 +365,76 @@ var imgPath = './assets/images/';
 
 //$('<div></div>').load('http://115.29.100.77/pangwenli/3rdsites/shuuemura1501/sessiontest.php');
 
+var isauth = function (callback) {
+    var handle = $.ajax({
+        type: "GET",
+        url: "http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/isauth.php",
+        dataType: "json"
+    });
+    handle.then(function (data) {
+        console.log(data);
+        if (data.result !== 'success') {
+            //swal('服务端异常!', '', 'error');
+            window.location.href="../auth.php?retURL="+window.location.href;
+            return false;
+        }
+        cache.isauth = data.jsonResponse;
+        if (callback) {
+            callback();
+        }
+    });
+    handle.fail(netError);
+
+
+    /*var dtd = $.Deferred();
+     var data = {
+     "result": "success",
+     "jsonResponse": {
+     "weid": "3",
+     "lastupdate": "1434098806",
+     "from_user": "ocWH5jronemcinR94HF6H1-r4n04",
+     "subscribe": "1",
+     "nickname": "%E9%B2%81%E6%BB%A8%E9%80%8A%E5%B2%9B",
+     "encode_nickname": "%25E9%25B2%2581%25E6%25BB%25A8%25E9%2580%258A%25E5%25B2%259B",
+     "sex": "1",
+     "city": "%E6%B5%A6%E4%B8%9C%E6%96%B0%E5%8C%BA",
+     "country": "%E4%B8%AD%E5%9B%BD",
+     "province": "%E4%B8%8A%E6%B5%B7",
+     "language": "zh_CN",
+     "headimgurl": "http%3A%2F%2Fwx.qlogo.cn%2Fmmopen%2FQ3auHgzwzM6fJLib3TjcOmul1amWTfll7QfWJuWcIxL1aTakDU9LEm3gObMa0o7XgIht0ibDv7q9NibmxaI845VEBCy0xiaqSZb2nbiafk368VVk%2F0",
+     "privilege": "a%3A0%3A%7B%7D",
+     "subscribe_time": "1420038739",
+     "createtime": "1420038740",
+     "more": {
+     "fans_id": "323634",
+     "mobile": "18012341234",
+     "mobile_status": "0",
+     "sex": "0",
+     "birth": "1999-11-30",
+     "email": "",
+     "realname": "",
+     "address": "",
+     "resideprovince": "",
+     "residecity": ""
+     }
+     }
+     };
+     dtd.resolve();
+     var handle = dtd.promise();
+     cache.isauth = data.jsonResponse;
+     if (callback) {
+     callback();
+     }
+     */
+
+    return handle;
+};
+
 function weixinActivity($el, cache) {
+    isauth(function () {
+        cache.phone = cache.isauth.more.mobile;
+    });
+
     cache.book_name = 1;
 
     Animate_Index = 0;
@@ -393,7 +462,7 @@ function weixinActivity($el, cache) {
         $('#loading p').html('LOADING...<br />' + p + '%')
     });
 
-    $el.zhuquan1 = $('.zhuquan1');
+    $el.goto = $('.s1-4');
     $el.wyyyBtn = $('.s1-3');
     $el.qryyBtn = $('.s2-2');
     $el.zdlBtn = $('.s3-1 .btn');
@@ -407,73 +476,10 @@ function weixinActivity($el, cache) {
     $el.timeInput = $('.ipt6', $el.infoBox);
     $el.perplexInput = $('.ipt7', $el.infoBox);
 
-    $el.zhuquan1.on('swipeUp', function(){
+    $el.goto.on('tap', function(){
         window.location.href = 'http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/reservation/index.html';
     });
 
-    var isauth = function (callback) {
-        var handle = $.ajax({
-            type: "GET",
-            url: "http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/isauth.php",
-            dataType: "json"
-        });
-        handle.then(function (data) {
-            console.log(data);
-            if (data.result !== 'success') {
-                swal('服务端异常!', '', 'error');
-                return false;
-            }
-            cache.isauth = data.jsonResponse;
-            if (callback) {
-                callback();
-            }
-        });
-        handle.fail(netError);
-
-
-        /*var dtd = $.Deferred();
-        var data = {
-            "result": "success",
-            "jsonResponse": {
-                "weid": "3",
-                "lastupdate": "1434098806",
-                "from_user": "ocWH5jronemcinR94HF6H1-r4n04",
-                "subscribe": "1",
-                "nickname": "%E9%B2%81%E6%BB%A8%E9%80%8A%E5%B2%9B",
-                "encode_nickname": "%25E9%25B2%2581%25E6%25BB%25A8%25E9%2580%258A%25E5%25B2%259B",
-                "sex": "1",
-                "city": "%E6%B5%A6%E4%B8%9C%E6%96%B0%E5%8C%BA",
-                "country": "%E4%B8%AD%E5%9B%BD",
-                "province": "%E4%B8%8A%E6%B5%B7",
-                "language": "zh_CN",
-                "headimgurl": "http%3A%2F%2Fwx.qlogo.cn%2Fmmopen%2FQ3auHgzwzM6fJLib3TjcOmul1amWTfll7QfWJuWcIxL1aTakDU9LEm3gObMa0o7XgIht0ibDv7q9NibmxaI845VEBCy0xiaqSZb2nbiafk368VVk%2F0",
-                "privilege": "a%3A0%3A%7B%7D",
-                "subscribe_time": "1420038739",
-                "createtime": "1420038740",
-                "more": {
-                    "fans_id": "323634",
-                    "mobile": "18012341234",
-                    "mobile_status": "0",
-                    "sex": "0",
-                    "birth": "1999-11-30",
-                    "email": "",
-                    "realname": "",
-                    "address": "",
-                    "resideprovince": "",
-                    "residecity": ""
-                }
-            }
-        };
-        dtd.resolve();
-        var handle = dtd.promise();
-        cache.isauth = data.jsonResponse;
-        if (callback) {
-            callback();
-        }
-*/
-
-        return handle;
-    };
     var shoppeData = function (callback) {
         var handle = $.ajax({
             type: "GET",
@@ -895,49 +901,41 @@ function weixinActivity($el, cache) {
         $el.wyyyBtn.data('tapLock', true);
         var handle1 = $.ajax({
             type: "GET",
-            url: ajaxHost + "is_allow_catch.php",
+            url: ajaxHost + "../is_allow_catch.php",
             dataType: "json"
         });
         handle1.then(function (data, xhr) {
             console.log(data);
             if (data.success) {
-            //if (data.success = true) {
-                if (data.data === 1) {
-                //if (data.data = 1) {
-                    $.when(
-                        isauth(function () {
-                            cache.phone = cache.isauth.more.mobile;
-                            $el.phoneInput.val(cache.phone);
-                        }),
-                        shoppeData(function () {
-                            var options = [
-                                '<option value="default" selected disabled>请选择城市</option>'
-                            ];
-                            if (!cache.cityData) {
-                                cache.cityData = {};
-                            }
-                            $.each(cache.shoppeData, function (index, item) {
-                                var option = [
-                                    '<option value="',
-                                    item.city,
-                                    '">',
-                                    item.city,
-                                    '</option>'
-                                ].join('');
-                                options.push(option);
-                                cache.cityData[item.city] = item.shop;
-                            });
-                            $el.cityInput.html(options.join(''));
-                        }))
-                        .done(function (a1, a2) {
-                            swipeUpFn(1);
-                        });
-                } else {
-                    location.href = ajaxHost;
-                }
+                shoppeData(function () {
+                    var options = [
+                        '<option value="default" selected disabled>请选择城市</option>'
+                    ];
+                    if (!cache.cityData) {
+                        cache.cityData = {};
+                    }
+                    $.each(cache.shoppeData, function (index, item) {
+                        var option = [
+                            '<option value="',
+                            item.city,
+                            '">',
+                            item.city,
+                            '</option>'
+                        ].join('');
+                        options.push(option);
+                        cache.cityData[item.city] = item.shop;
+                    });
+                    $el.cityInput.html(options.join(''));
+                    $el.phoneInput.val(cache.phone);
+                    swipeUpFn(1);
+                });
             } else {
-                swal(decodeURIComponent(data.msg), '', 'error');
-                $el.wyyyBtn.data('tapLock', false);
+                var url = [
+                    'http://oper.weoper.com/weoper/mobile.php?act=entry&eid=156&weid=3&wxref=mp.weixin.qq.com',
+                    '&retURL=',
+                    encodeURIComponent(window.location.href),
+                    '#wechat_redirect'].join('');
+                location.href = url;
             }
         });
         handle1.fail(netError);
@@ -986,26 +984,25 @@ function weixinActivity($el, cache) {
         //    return false;
         //}
         if (!cache.city) {
-            swal('请输入所在城市!', '', 'warning');
+            swal('请选择所在城市!', '', 'warning');
             return false;
         }
         if (!cache.shoppeCode) {
-            swal('请输入专柜名称!', '', 'warning');
+            swal('请选择专柜名称!', '', 'warning');
             return false;
         }
         if (!cache.date) {
-            swal('请输入日期!', '', 'warning');
+            swal('请选择日期!', '', 'warning');
             return false;
         }
         cache.time = $el.timeInput.val();
         if (!cache.time) {
-            swal('请输入时间!', '', 'warning');
+            swal('请选择时间!', '', 'warning');
             return false;
         }
         perplex = $el.perplexInput.val();
-        perplex = $.trim(perplex);
-        if (!perplex.length) {
-            swal('请输入困扰!', '', 'warning');
+        if (!perplex) {
+            swal('请选择困扰!', '', 'warning');
             return false;
         }
 
@@ -1042,6 +1039,10 @@ function weixinActivity($el, cache) {
 }
 
 function weixinServing($el, cache) {
+    isauth(function () {
+        cache.phone = cache.isauth.more.mobile;
+    });
+
     cache.book_name = 1;
     cache.book_id = $.url().param('book_id');
 
