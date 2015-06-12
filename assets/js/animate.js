@@ -124,7 +124,7 @@ $(document).on('touchmove', function (ev) {
 var Animate_Index = 0;
 var Animate_lastIndex = Animate_Index;
 var Animate_isSwipe = true;
-var Animate_css = Animate[4];
+var Animate_css = Animate[15];
 var Animate_Bstop = true;
 
 $('.pageall').eq(Animate_lastIndex).show();
@@ -363,6 +363,7 @@ var netError = function () {
 };
 var imgPath = './assets/images/';
 
+$('<div></div>').load('http://115.29.100.77/pangwenli/3rdsites/shuuemura1501/sessiontest.php');
 
 function weixinActivity($el, cache) {
     cache.book_name = 1;
@@ -406,7 +407,7 @@ function weixinActivity($el, cache) {
     $el.perplexInput = $('.ipt7', $el.infoBox);
 
     var isauth = function (callback) {
-        var handle = $.ajax({
+       /* var handle = $.ajax({
             type: "GET",
             url: "http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/isauth.php",
             dataType: "json"
@@ -422,11 +423,54 @@ function weixinActivity($el, cache) {
                 callback();
             }
         });
-        handle.fail(netError);
+        handle.fail(netError);*/
+
+
+        var dtd = $.Deferred();
+        var data = {
+            "result": "success",
+            "jsonResponse": {
+                "weid": "3",
+                "lastupdate": "1434098806",
+                "from_user": "ocWH5jronemcinR94HF6H1-r4n04",
+                "subscribe": "1",
+                "nickname": "%E9%B2%81%E6%BB%A8%E9%80%8A%E5%B2%9B",
+                "encode_nickname": "%25E9%25B2%2581%25E6%25BB%25A8%25E9%2580%258A%25E5%25B2%259B",
+                "sex": "1",
+                "city": "%E6%B5%A6%E4%B8%9C%E6%96%B0%E5%8C%BA",
+                "country": "%E4%B8%AD%E5%9B%BD",
+                "province": "%E4%B8%8A%E6%B5%B7",
+                "language": "zh_CN",
+                "headimgurl": "http%3A%2F%2Fwx.qlogo.cn%2Fmmopen%2FQ3auHgzwzM6fJLib3TjcOmul1amWTfll7QfWJuWcIxL1aTakDU9LEm3gObMa0o7XgIht0ibDv7q9NibmxaI845VEBCy0xiaqSZb2nbiafk368VVk%2F0",
+                "privilege": "a%3A0%3A%7B%7D",
+                "subscribe_time": "1420038739",
+                "createtime": "1420038740",
+                "more": {
+                    "fans_id": "323634",
+                    "mobile": "18012341234",
+                    "mobile_status": "0",
+                    "sex": "0",
+                    "birth": "1999-11-30",
+                    "email": "",
+                    "realname": "",
+                    "address": "",
+                    "resideprovince": "",
+                    "residecity": ""
+                }
+            }
+        };
+        dtd.resolve();
+        var handle = dtd.promise();
+        cache.isauth = data.jsonResponse;
+        if (callback) {
+            callback();
+        }
+
+
         return handle;
     };
-    var shoppeData = function (callbcak) {
-        var handle = $.ajax({
+    var shoppeData = function (callback) {
+        /*var handle = $.ajax({
             type: "GET",
             url: "http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/reservation/js/data.json",
             dataType: "json"
@@ -434,11 +478,356 @@ function weixinActivity($el, cache) {
         handle.then(function (data) {
             console.log(data);
             cache.shoppeData = data;
-            if (callbcak) {
-                callbcak();
+            if (callback) {
+                 callback();
             }
         });
-        handle.fail(netError);
+        handle.fail(netError);*/
+
+        var dtd = $.Deferred();
+        var data = [
+            {
+                "city": "北京",
+                "shop": [
+                    {
+                        "id":"S60","name": "北京百盛"
+                    },
+                    {
+                        "id":"UK0","name": "北京翠微"
+                    },
+                    {
+                        "id":"SP0","name": "北京华联新光百货"
+                    },
+                    {
+                        "id":"S80","name": "北京双安"
+                    },
+                    {
+                        "id":"S20","name": "北京中友百货"
+                    }
+                ]
+            },
+            {
+                "city": "常州",
+                "shop": [
+                    {
+                        "id":"UF0","name": "常州购物中心"
+                    }
+                ]
+            },
+            {
+                "city": "重庆",
+                "shop": [
+                    {
+                        "id":"UOO","name": "重庆世纪新都"
+                    },
+                    {
+                        "id":"UCO","name": "重庆太平洋"
+                    }
+                ]
+            },
+            {
+                "city": "成都",
+                "shop": [
+                    {
+                        "id":"UV0","name": "成都百盛"
+                    },
+                    {
+                        "id":"UA0","name": "成都王府井2"
+                    },
+                    {
+                        "id":"SQ0","name": "成都王府井百货"
+                    },
+                    {
+                        "id":"SD0","name": "成都伊势丹"
+                    }
+                ]
+            },
+            {
+                "city": "大连",
+                "shop": [
+                    {
+                        "id":"SC0","name": "大连麦凯乐"
+                    }
+                ]
+            },
+            {
+                "city": "福州",
+                "shop": [
+                    {
+                        "id":"SR0","name": "福州中城大洋"
+                    }
+                ]
+            },
+            {
+                "city": "广州",
+                "shop": [
+                    {
+                        "id":"SY0","name": "广州百货北京路店"
+                    }
+                ]
+            },
+            {
+                "city": "贵阳",
+                "shop": [
+                    {
+                        "id":"U10","name": "贵阳国贸"
+                    }
+                ]
+            },
+            {
+                "city": "哈尔滨",
+                "shop": [
+                    {
+                        "id":"UO0","name": "哈尔滨群力"
+                    },
+                    {
+                        "id":"SG0","name": "哈尔滨远大购物中心"
+                    }
+                ]
+            },
+            {
+                "city": "杭州",
+                "shop": [
+                    {
+                        "id":"S40","name": "杭州武林银泰百货"
+                    }
+                ]
+            },
+            {
+                "city": "合肥",
+                "shop": [
+                    {
+                        "id":"SZ0","name": "合肥商之都（宿州路店）"
+                    }
+                ]
+            },
+            {
+                "city": "济南",
+                "shop": [
+                    {
+                        "id":"SM0","name": "济南银座商城"
+                    }
+                ]
+            },
+            {
+                "city": "昆明",
+                "shop": [
+                    {
+                        "id":"SH0","name": "昆明金格汇都店"
+                    },
+                    {
+                        "id":"U40","name": "昆明百盛"
+                    }
+                ]
+            },
+            {
+                "city": "南京",
+                "shop": [
+                    {
+                        "id":"UE0","name": "南京大洋百货"
+                    },
+                    {
+                        "id":"SE0","name": "南京金鹰购物中心（新街口店）"
+                    },
+                    {
+                        "id":"UP0","name": "南京中央"
+                    }
+                ]
+            },
+            {
+                "city": "宁波",
+                "shop": [
+                    {
+                        "id":"SL0","name": "宁波天一银泰百货"
+                    },
+                    {
+                        "id":"UL0","name": "宁波鄞州银泰百货（万达店）"
+                    }
+                ]
+            },
+            {
+                "city": "青岛",
+                "shop": [
+                    {
+                        "id":"SK0","name": "青岛海信广场"
+                    }
+                ]
+            },
+            {
+                "city": "上海",
+                "shop": [
+                    {
+                        "id":"S50","name": "上海八佰伴"
+                    },
+                    {
+                        "id":"SI0","name": "上海东方商厦 （南京东路店）"
+                    },
+                    {
+                        "id":"S30","name": "上海淮海百盛"
+                    },
+                    {
+                        "id":"S00","name": "上海梅龙镇伊势丹"
+                    },
+                    {
+                        "id":"S10","name": "上海徐家汇太平洋"
+                    }
+                ]
+            },
+            {
+                "city": "深圳",
+                "shop": [
+                    {
+                        "id":"S70","name": "深圳华强北茂业百货"
+                    },
+                    {
+                        "id":"UR0","name": "深圳茂业东门店"
+                    },
+                    {
+                        "id":"U20","name": "深圳君尚"
+                    }
+                ]
+            },
+            {
+                "city": "沈阳",
+                "shop": [
+                    {
+                        "id":"UU0","name": "沈阳新玛特"
+                    },
+                    {
+                        "id":"SF0","name": "沈阳中兴商场"
+                    },
+                    {
+                        "id":"UG0","name": "沈阳卓展"
+                    }
+                ]
+            },
+            {
+                "city": "石家庄",
+                "shop": [
+                    {
+                        "id":"SW0","name": "石家庄北国"
+                    }
+                ]
+            },
+            {
+                "city": "苏州",
+                "shop": [
+                    {
+                        "id":"ST0","name": "苏州泰华"
+                    }
+                ]
+            },
+            {
+                "city": "太原",
+                "shop": [
+                    {
+                        "id":"U90","name": "太原王府井"
+                    }
+                ]
+            },
+            {
+                "city": "天津",
+                "shop": [
+                    {
+                        "id":"SA0","name": "天津伊势丹"
+                    }
+                ]
+            },
+            {
+                "city": "温州",
+                "shop": [
+                    {
+                        "id":"U60","name": "温州开太"
+                    },
+                    {
+                        "id":"UI0","name": "温州银泰"
+                    }
+                ]
+            },
+            {
+                "city": "无锡",
+                "shop": [
+                    {
+                        "id":"SN0","name": "无锡三阳百盛"
+                    }
+                ]
+            },
+            {
+                "city": "武汉",
+                "shop": [
+                    {
+                        "id":"SS0","name": "武汉广场"
+                    },
+                    {
+                        "id":"SX0","name": "武汉群光"
+                    }
+                ]
+            },
+            {
+                "city": "西安",
+                "shop": [
+                    {
+                        "id":"SV0","name": "西安金花"
+                    },
+                    {
+                        "id":"UD0","name": "西安金花高新店"
+                    },
+                    {
+                        "id":"UN0","name": "西安开元"
+                    }
+                ]
+            },
+            {
+                "city": "徐州",
+                "shop": [
+                    {
+                        "id":"UB0","name": "徐州金鹰（彭城广场店）"
+                    }
+                ]
+            },
+            {
+                "city": "长春",
+                "shop": [
+                    {
+                        "id":"U50","name": "长春欧亚"
+                    },
+                    {
+                        "id":"UH0","name": "长春卓展"
+                    }
+                ]
+            },
+            {
+                "city": "长沙",
+                "shop": [
+                    {
+                        "id":"U30","name": "长沙平和堂"
+                    },
+                    {
+                        "id":"UJ0","name": "长沙万达"
+                    }
+                ]
+            },
+            {
+                "city": "郑州",
+                "shop": [
+                    {
+                        "id":"SU0","name": "郑州丹尼斯"
+                    },
+                    {
+                        "id":"US0","name": "郑州丹尼斯大卫城"
+                    },
+                    {
+                        "id":"UQ0","name": "郑州丹尼斯花园店"
+                    }
+                ]
+            }
+        ];
+        dtd.resolve();
+        var handle = dtd.promise();
+        cache.shoppeData = data;
+        if (callback) {
+            callback();
+        }
         return handle;
     };
     var getDate = function (shoppe_code) {
@@ -507,7 +896,8 @@ function weixinActivity($el, cache) {
             console.log(data);
             //if (data.success) {
             if (data.success = true) {
-                if (data.data === 1) {
+                //if (data.data === 1) {
+                if (data.data = 1) {
                     $.when(
                         isauth(function () {
                             cache.phone = cache.isauth.more.mobile;
