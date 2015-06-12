@@ -393,6 +393,7 @@ function weixinActivity($el, cache) {
         $('#loading p').html('LOADING...<br />' + p + '%')
     });
 
+    $el.zhuquan1 = $('.zhuquan1');
     $el.wyyyBtn = $('.s1-3');
     $el.qryyBtn = $('.s2-2');
     $el.zdlBtn = $('.s3-1 .btn');
@@ -405,6 +406,10 @@ function weixinActivity($el, cache) {
     $el.dateInput = $('.ipt5', $el.infoBox);
     $el.timeInput = $('.ipt6', $el.infoBox);
     $el.perplexInput = $('.ipt7', $el.infoBox);
+
+    $el.zhuquan1.on('swipeUp', function(){
+        window.location.href = 'http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/reservation/index.html';
+    });
 
     var isauth = function (callback) {
        /* var handle = $.ajax({
@@ -1003,7 +1008,7 @@ function weixinActivity($el, cache) {
             return false;
         }
 
-        var handle4 = $.ajax({
+        /*var handle4 = $.ajax({
             type: "POST", //POST
             url: ajaxHost + "add_book_ticket.php",
             data: {
@@ -1023,8 +1028,8 @@ function weixinActivity($el, cache) {
             }
             swipeUpFn(2);
         });
-        handle4.fail(netError);
-        //swipeUpFn(2);
+        handle4.fail(netError);*/
+        swipeUpFn(2);
     });
     $el.zdlBtn.on('tap', function () {
         if (WeixinJSBridge) {
@@ -1064,6 +1069,7 @@ function weixinServing($el, cache) {
     $el.qrtj2Btn = $('.s6-3 .btn');
     $el.ljfxBtn = $('.s7-1 .btn1');
     $el.exitBtn = $('.s7-1 .btn2');
+    $el.sharePop = $('.mark, .popbox');
 
     $el.infoList = $('.s4-1 li span');
     $el.baCodeInput = $('.s5-1 .ipt');
@@ -1110,7 +1116,14 @@ function weixinServing($el, cache) {
         });
         handle1.fail(netError);
     };
-    initHandle1();
+    //initHandle1();
+
+    /**
+     * debug
+     */
+    $el.qrsyBtn.on('tap', function(){
+        swipeUpFn(1);
+    });
 
     $el.qrtj1Btn.on('tap', function () {
         var tapLock = $el.qrtj1Btn.data('tapLock');
@@ -1124,7 +1137,7 @@ function weixinServing($el, cache) {
             return false;
         }
 
-        $el.qrtj1Btn.data('tapLock', true);
+        /*$el.qrtj1Btn.data('tapLock', true);
         var handle2 = $.ajax({
             type: "POST", //POST
             url: ajaxHost + "update_book_ticket.php",
@@ -1141,12 +1154,13 @@ function weixinServing($el, cache) {
                 return false;
             }
             swipeUpFn(2);
-            cache.baCode = baCode;
         });
         handle2.fail(netError);
         handle2.done(function () {
             $el.qrtj1Btn.data('tapLock', false);
-        });
+        });*/
+
+        swipeUpFn(2);
     });
     $el.starInput.on('tap', function () {
         var $self = $(this);
@@ -1174,7 +1188,7 @@ function weixinServing($el, cache) {
             return false;
         }
 
-        $el.qrtj2Btn.data('tapLock', true);
+        /*$el.qrtj2Btn.data('tapLock', true);
         var handle3 = $.ajax({
             type: "POST", //POST
             url: ajaxHost + "add_ba_score.php",
@@ -1198,11 +1212,15 @@ function weixinServing($el, cache) {
         handle3.fail(netError);
         handle3.done(function () {
             $el.qrtj2Btn.data('tapLock', false);
-        });
-        //swipeUpFn(3);
+        });*/
+        swipeUpFn(3);
     });
     $el.ljfxBtn.on('tap', function () {
-        log.debug('ljfxBtn');
+        $el.sharePop.show();
+        setTimeout(function(){
+            $el.sharePop.hide();
+        }, 3000);
+        //log.debug('ljfxBtn');
     });
     $el.exitBtn.on('tap', function () {
         if (WeixinJSBridge) {
