@@ -357,7 +357,7 @@ function HTMLStart() {
 
 }
 
-var ajaxHost = 'http://115.29.100.77/pangwenli/3rdsites/shuuemura1501';
+var ajaxHost = 'http://115.29.100.77/pangwenli/3rdsites/shuuemura1501/reservation';
 var netError = function () {
     swal('网络异常!', '', 'error');
 };
@@ -365,6 +365,8 @@ var imgPath = './assets/images/';
 
 
 function weixinActivity($el, cache) {
+    cache.book_name = 1;
+
     Animate_Index = 0;
     LoadingImg.push(imgPath + 'wx_logo.png');
     LoadingImg.push(imgPath + 'wx_3.png');
@@ -402,35 +404,43 @@ function weixinActivity($el, cache) {
     $el.dateInput = $('.ipt5', $el.infoBox);
     $el.timeInput = $('.ipt6', $el.infoBox);
     $el.perplexInput = $('.ipt7', $el.infoBox);
-    $el.wyyyBtn.on('tap', function (evt) {
-        var tapLock = $el.wyyyBtn.data('tapLock');
-        if (tapLock) {
-            return false;
-        }
-        $el.wyyyBtn.data('tapLock', true);
-        var handle1 = $.ajax({
+
+    var isauth = function(callback){
+        var handle = $.ajax({
             type: "GET",
-            url: ajaxHost + "/is_allow_catch.php",
+            url: "http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/isauth.php",
             dataType: "json"
         });
-        handle1.then(function (data, xhr) {
+        handle.then(function(data){
             console.log(data);
-            if (data.success) {
-                if (data.data === 1) {
-                    swipeUpFn(1);
-                } else {
-                    location.href = ajaxHost;
-                }
-            } else {
-                swal(decodeURIComponent(data.msg), '', 'error');
+            if(data.result !== 'success'){
+                swal('服务端异常!', '', 'error');
+                return false;
+            }
+            cache.isauth = data.jsonResponse;
+            if(callback){
+                callback();
             }
         });
-        handle1.fail(netError);
-        handle1.done(function () {
-            $el.wyyyBtn.data('tapLock', false);
+        handle.fail(netError);
+        return handle;
+    };
+    var shoppeData = function(callbcak){
+        var handle = $.ajax({
+            type: "GET",
+            url: "http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/reservation/js/data.json",
+            dataType: "json"
         });
-    });
-
+        handle.then(function(data){
+            console.log(data);
+            cache.shoppeData = data;
+            if(callbcak){
+                callbcak();
+            }
+        });
+        handle.fail(netError);
+        return handle;
+    };
     var getDate = function (shoppe_code) {
         var handle2 = $.ajax({
             type: "GET",
@@ -446,16 +456,16 @@ function weixinActivity($el, cache) {
                 swal(decodeURIComponent(data.msg), '', 'error');
                 return false;
             }
-            var options = [];
+            var options = ['<option value="default" selected disabled>请选择日期</option>'];
             $.each(data.data, function (index, item) {
                 var option = ['<option>', item, '</option>'].join('');
                 options.push(option);
             });
             $el.dateInput.html(options.join(''));
+            $el.dateInput.removeAttr('disabled');
         });
         handle2.fail(netError);
     };
-
     var getTime = function (shoppe_code, date) {
         var handle3 = $.ajax({
             type: "GET",
@@ -472,7 +482,7 @@ function weixinActivity($el, cache) {
                 swal(decodeURIComponent(data.msg), '', 'error');
                 return false;
             }
-            var options = [];
+            var options = ['<option value="default" selected disabled>请选择时间</option>'];
             $.each(data.data, function (index, item) {
                 var option = ['<option>', item, '</option>'].join('');
                 options.push(option);
@@ -482,43 +492,116 @@ function weixinActivity($el, cache) {
         handle3.fail(netError);
     };
 
-    //getDate('shoppe_code');
-    //getTime('shoppe_code', 'date');
+    $el.wyyyBtn.on('tap', function (evt) {
+        var tapLock = $el.wyyyBtn.data('tapLock');
+        if (tapLock) {
+            return false;
+        }
+        $el.wyyyBtn.data('tapLock', true);
+        var handle1 = $.ajax({
+            type: "GET",
+            url: ajaxHost + "/is_allow_catch.php",
+            dataType: "json"
+        });
+        handle1.then(function (data, xhr) {
+            console.log(data);
+            if (data.success) {
+                if (data.data === 1) {
+                    $.when(
+                        isauth(function () {
+                            $el.phoneInput.val(cache.isauth.more.mobile);
+                        }),
+                        shoppeData(function(){
+                            var options = [
+                                '<option value="default" selected disabled>请选择城市</option>'
+                            ];
+                            if(!cache.cityData){
+                                cache.cityData = {};
+                            }
+                            $.each(cache.shoppeData, function(index, item){
+                                var option = [
+                                    '<option value="',
+                                    item.city,
+                                    '">',
+                                    item.city,
+                                    '</option>'
+                                ].join('');
+                                options.push(option);
+                                cache.cityData[item.city] = item.shop;
+                            });
+                            $el.cityInput.html(options.join(''));
+                        }))
+                        .done(function (a1, a2) {
+                            swipeUpFn(1);
+                        });
+                } else {
+                    location.href = ajaxHost;
+                }
+            } else {
+                swal(decodeURIComponent(data.msg), '', 'error');
+                $el.wyyyBtn.data('tapLock', false);
+            }
+        });
+        handle1.fail(netError);
+        handle1.fail(function () {
+            $el.wyyyBtn.data('tapLock', false);
+        });
+    });
+
+    $el.cityInput.on('change', function(){
+        cache.city = ($el.cityInput.val());
+        var shoppeList = cache.cityData[cache.city];
+        var options = ['<option value="default" selected disabled>请选择专柜</option>'];
+        $.each(shoppeList, function(index, item){
+            var option = [
+                '<option value="',
+                item.id,
+                '">',
+                item.name,
+                '</option>'
+            ].join('');
+            options.push(option);
+        });
+        $el.shoppeInput.html(options.join(''));
+        $el.shoppeInput.removeAttr('disabled');
+    });
+    $el.shoppeInput.on('change', function(){
+        cache.shoppeCode = $el.shoppeInput.val();
+        getDate(cache.shoppeCode);
+    });
+    $el.dateInput.on('change', function(){
+        cache.date = $el.dateInput.val();
+        getTime(cache.shoppeCode, cache.date);
+    });
+
     $el.qryyBtn.on('tap', function () {
         var name, phone, city, shoppe, date, time, perplex;
-        name = $el.nameInput.val();
-        name = $.trim(name);
-        if (!name.length) {
+        cache.name = $el.nameInput.val();
+        cache.name = $.trim(cache.name);
+        if (!cache.name.length) {
             swal('请输入姓名!', '', 'warning');
             return false;
         }
-        phone = $el.phoneInput.val();
-        phone = $.trim(phone);
-        if (!phone.length) {
+        cache.phone = $el.phoneInput.val();
+        cache.phone = $.trim(cache.phone);
+        if (!cache.phone.length) {
             swal('请输入手机号!', '', 'warning');
             return false;
         }
-        city = $el.cityInput.val();
-        city = $.trim(city);
-        if (!city.length) {
+        if (!cache.city) {
             swal('请输入所在城市!', '', 'warning');
             return false;
         }
-        shoppe = $el.shoppeInput.val();
-        shoppe = $.trim(shoppe);
-        if (!shoppe.length) {
+        if (!cache.shoppeCode) {
             swal('请输入专柜名称!', '', 'warning');
             return false;
         }
-        date = $el.dateInput.val();
-        date = $.trim(date);
-        if (!date.length) {
+        if (!cache.date) {
             swal('请输入日期!', '', 'warning');
             return false;
         }
-        time = $el.timeInput.val();
-        time = $.trim(time);
-        if (!time.length) {
+        cache.time = $el.timeInput.val();
+        if (!cache.time) {
             swal('请输入时间!', '', 'warning');
             return false;
         }
@@ -530,15 +613,15 @@ function weixinActivity($el, cache) {
         }
 
         var handle4 = $.ajax({
-            type: "GET", //POST
+            type: "POST", //POST
             url: ajaxHost + "/add_book_ticket.php",
             data: {
-                book_name: 'xxx',
-                book_user: name,
-                book_user_phone: phone,
-                book_shoppe: shoppe,
-                book_date: date,
-                book_time: time
+                book_name: cache.book_name,
+                book_user: cache.name,
+                book_user_phone: cache.phone,
+                book_shoppe: cache.shoppeCode,
+                book_date: cache.date,
+                book_time: cache.time
             },
             dataType: "json"
         });
