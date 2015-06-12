@@ -357,7 +357,7 @@ function HTMLStart() {
 
 }
 
-var ajaxHost = 'http://115.29.100.77/pangwenli/3rdsites/shuuemura1501/reservation';
+var ajaxHost = 'http://115.29.100.77/pangwenli/3rdsites/shuuemura1501/reservation/';
 var netError = function () {
     swal('网络异常!', '', 'error');
 };
@@ -405,36 +405,36 @@ function weixinActivity($el, cache) {
     $el.timeInput = $('.ipt6', $el.infoBox);
     $el.perplexInput = $('.ipt7', $el.infoBox);
 
-    var isauth = function(callback){
+    var isauth = function (callback) {
         var handle = $.ajax({
             type: "GET",
             url: "http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/isauth.php",
             dataType: "json"
         });
-        handle.then(function(data){
+        handle.then(function (data) {
             console.log(data);
-            if(data.result !== 'success'){
+            if (data.result !== 'success') {
                 swal('服务端异常!', '', 'error');
                 return false;
             }
             cache.isauth = data.jsonResponse;
-            if(callback){
+            if (callback) {
                 callback();
             }
         });
         handle.fail(netError);
         return handle;
     };
-    var shoppeData = function(callbcak){
+    var shoppeData = function (callbcak) {
         var handle = $.ajax({
             type: "GET",
             url: "http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/reservation/js/data.json",
             dataType: "json"
         });
-        handle.then(function(data){
+        handle.then(function (data) {
             console.log(data);
             cache.shoppeData = data;
-            if(callbcak){
+            if (callbcak) {
                 callbcak();
             }
         });
@@ -444,7 +444,7 @@ function weixinActivity($el, cache) {
     var getDate = function (shoppe_code) {
         var handle2 = $.ajax({
             type: "GET",
-            url: ajaxHost + "/get_date.php",
+            url: ajaxHost + "get_date.php",
             data: {
                 shoppe_code: shoppe_code
             },
@@ -469,7 +469,7 @@ function weixinActivity($el, cache) {
     var getTime = function (shoppe_code, date) {
         var handle3 = $.ajax({
             type: "GET",
-            url: ajaxHost + "/get_time.php",
+            url: ajaxHost + "get_time.php",
             data: {
                 shoppe_code: shoppe_code,
                 date: date,
@@ -500,7 +500,7 @@ function weixinActivity($el, cache) {
         $el.wyyyBtn.data('tapLock', true);
         var handle1 = $.ajax({
             type: "GET",
-            url: ajaxHost + "/is_allow_catch.php",
+            url: ajaxHost + "is_allow_catch.php",
             dataType: "json"
         });
         handle1.then(function (data, xhr) {
@@ -509,16 +509,17 @@ function weixinActivity($el, cache) {
                 if (data.data === 1) {
                     $.when(
                         isauth(function () {
-                            $el.phoneInput.val(cache.isauth.more.mobile);
+                            cache.phone = cache.isauth.more.mobile;
+                            $el.phoneInput.val(cache.phone);
                         }),
-                        shoppeData(function(){
+                        shoppeData(function () {
                             var options = [
                                 '<option value="default" selected disabled>请选择城市</option>'
                             ];
-                            if(!cache.cityData){
+                            if (!cache.cityData) {
                                 cache.cityData = {};
                             }
-                            $.each(cache.shoppeData, function(index, item){
+                            $.each(cache.shoppeData, function (index, item) {
                                 var option = [
                                     '<option value="',
                                     item.city,
@@ -548,11 +549,11 @@ function weixinActivity($el, cache) {
         });
     });
 
-    $el.cityInput.on('change', function(){
+    $el.cityInput.on('change', function () {
         cache.city = ($el.cityInput.val());
         var shoppeList = cache.cityData[cache.city];
         var options = ['<option value="default" selected disabled>请选择专柜</option>'];
-        $.each(shoppeList, function(index, item){
+        $.each(shoppeList, function (index, item) {
             var option = [
                 '<option value="',
                 item.id,
@@ -565,11 +566,11 @@ function weixinActivity($el, cache) {
         $el.shoppeInput.html(options.join(''));
         $el.shoppeInput.removeAttr('disabled');
     });
-    $el.shoppeInput.on('change', function(){
+    $el.shoppeInput.on('change', function () {
         cache.shoppeCode = $el.shoppeInput.val();
         getDate(cache.shoppeCode);
     });
-    $el.dateInput.on('change', function(){
+    $el.dateInput.on('change', function () {
         cache.date = $el.dateInput.val();
         getTime(cache.shoppeCode, cache.date);
     });
@@ -582,12 +583,11 @@ function weixinActivity($el, cache) {
             swal('请输入姓名!', '', 'warning');
             return false;
         }
-        cache.phone = $el.phoneInput.val();
-        cache.phone = $.trim(cache.phone);
-        if (!cache.phone.length) {
-            swal('请输入手机号!', '', 'warning');
-            return false;
-        }
+        //cache.phone = $el.phoneInput.val();
+        //if (!cache.phone.length) {
+        //    swal('请输入手机号!', '', 'warning');
+        //    return false;
+        //}
         if (!cache.city) {
             swal('请输入所在城市!', '', 'warning');
             return false;
@@ -614,7 +614,7 @@ function weixinActivity($el, cache) {
 
         var handle4 = $.ajax({
             type: "POST", //POST
-            url: ajaxHost + "/add_book_ticket.php",
+            url: ajaxHost + "add_book_ticket.php",
             data: {
                 book_name: cache.book_name,
                 book_user: cache.name,
@@ -645,6 +645,7 @@ function weixinActivity($el, cache) {
 
 function weixinServing($el, cache) {
     cache.book_name = 1;
+    cache.book_id = $.url().param('book_id');
 
     Animate_Index = 0;
     LoadingImg.push(imgPath + 'yy_7.png');
@@ -680,10 +681,10 @@ function weixinServing($el, cache) {
 
     var initHandle1 = function () {
         var handle1 = $.ajax({
-            type: "GET", //POST
-            url: ajaxHost + "/get_book_ticket_info.php",
+            type: "POST", //POST
+            url: ajaxHost + "get_book_ticket_info.php",
             data: {
-                book_id: 'xxx'
+                book_id: cache.book_id
             },
             dataType: "json"
         });
@@ -725,20 +726,20 @@ function weixinServing($el, cache) {
         if (tapLock) {
             return false;
         }
-        var baCode = $el.baCodeInput.val();
-        baCode = $.trim(baCode);
-        if (!baCode.length) {
+        cache.baCode = $el.baCodeInput.val();
+        cache.baCode = $.trim(cache.baCode);
+        if (!cache.baCode.length) {
             swal('请输入 Ba Code!', '', 'warning');
             return false;
         }
 
         $el.qrtj1Btn.data('tapLock', true);
         var handle2 = $.ajax({
-            type: "GET", //POST
+            type: "POST", //POST
             url: ajaxHost + "update_book_ticket.php",
             data: {
-                book_id: 'xxx',
-                ba_code: baCode
+                book_id: cache.book_id,
+                ba_code: cache.baCode
             },
             dataType: "json"
         });
@@ -784,11 +785,11 @@ function weixinServing($el, cache) {
 
         $el.qrtj2Btn.data('tapLock', true);
         var handle3 = $.ajax({
-            type: "GET", //POST
+            type: "POST", //POST
             url: ajaxHost + "add_ba_score.php",
             data: {
-                book_id: 'xxx',
-                book_name: 'xxx',
+                book_id: cache.book_id,
+                book_name: cache.book_name,
                 ba_code: cache.baCode,
                 score: starNum,
                 comment: propose,
