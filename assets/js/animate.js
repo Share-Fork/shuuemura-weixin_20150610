@@ -505,7 +505,8 @@ function weixinActivity($el, cache) {
         });
         handle1.then(function (data, xhr) {
             console.log(data);
-            if (data.success) {
+            //if (data.success) {
+            if (data.success = true) {
                 if (data.data === 1) {
                     $.when(
                         isauth(function () {
