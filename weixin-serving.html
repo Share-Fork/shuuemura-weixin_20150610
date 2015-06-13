@@ -14,7 +14,7 @@
     <script src="./assets/libs/purl/2.3.1/purl.js"></script>
     <script src="./assets/js/self-min.js"></script>
     <script src="./assets/js/PxLoader.js"></script>
-    <script src="./assets/js/weixinjs.js?123"></script>
+    <script src="./assets/js/weixinjs.js?13223"></script>
     <script src="./assets/libs/sweetalert/1.0.1.fix/sweetalert-dev.js"></script>
 </head>
 <body>
@@ -28,12 +28,6 @@
         <span class="logo"></span>
         <div class="box">
             <ul class="s4-1">
-                <li>姓名：<span>王广兴</span></li>
-                <li>手机：<span>1393821543</span></li>
-                <li>城市：<span>上海</span></li>
-                <li>专柜：<span>淮海百盛</span></li>
-                <li>预约日期：<span>2015-06-03</span></li>
-                <li>预约时间：<span>13:00</span></li>
             </ul>
             <span class="s4-2"></span>
         </div>
@@ -69,7 +63,18 @@
 </div>
 </body>
 </html>
-<script src="./assets/js/animate.js"></script>
+<script src="./assets/js/animate.js?as"></script>
 <script>
-    javascript:(function(e){e.setAttribute("src","http://192.168.1.124:8080/target/target-script-min.js#anonymous");document.getElementsByTagName("body")[0].appendChild(e);})(document.createElement("script"));void(0);
+	  window.apiUrl = 'http://oper.weoper.com/weoper/mobile.php?act=module&name=yswfcommon&do=ApiJsSignature&weid=3'; //公众号接口
+		      window.title = '植村秀底妆形三部曲，免费体验童颜微光肌'; //分享标题
+		      window.desc = '这个春夏，植村秀带你开启童颜微光季！';  //分享摘要
+		      window.link = 'http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/shubb/weixin-activity.html?utm_source=share'; //分享链接
+		      window.img = 'http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/shubb/assets/images/share.jpg'; //分享图标
+		      window.openid =data.jsonResponse.from_user; 
+		      window.taskname = '植村秀底妆形三部曲'; //活动名称
+		      window.customer = '植村秀'; //客户名称
+		      window.fn;//自定义回调方法，分享成功后执行
+		      WXshare(apiUrl,title,desc,link,img,openid,taskname,customer,function(){
+		        // alert(window.link);
+		      }); //分享方法调用
 </script>

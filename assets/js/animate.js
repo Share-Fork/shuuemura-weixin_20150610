@@ -381,7 +381,35 @@ var isauth = function (callback) {
         cache.isauth = data.jsonResponse;
         if (callback) {
             callback();
-        }
+        };
+		
+		
+		
+		  window.apiUrl = 'http://oper.weoper.com/weoper/mobile.php?act=module&name=yswfcommon&do=ApiJsSignature&weid=3'; //公众号接口
+		  window.title = '植村秀底妆形三部曲，免费体验童颜微光肌'; //分享标题
+		  window.desc = '这个春夏，植村秀带你开启童颜微光季！';  //分享摘要
+		  window.link = 'http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/shubb/weixin-activity.html?utm_source=share'; //分享链接
+		  window.img = 'http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/shubb/assets/images/share.jpg'; //分享图标
+		  window.openid =data.jsonResponse.from_user; 
+		  window.taskname = '植村秀底妆形三部曲'; //活动名称
+		  window.customer = '植村秀'; //客户名称
+		  window.fn;//自定义回调方法，分享成功后执行
+		  WXshare(apiUrl,title,desc,link,img,openid,taskname,customer,function(){
+			// alert(window.link);
+		  }); //分享方法调用
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
     });
     handle.fail(netError);
 
@@ -495,352 +523,6 @@ function weixinActivity($el, cache) {
             }
         });
         handle.fail(netError);
-
-        /*var dtd = $.Deferred();
-        var data = [
-            {
-                "city": "北京",
-                "shop": [
-                    {
-                        "id":"S60","name": "北京百盛"
-                    },
-                    {
-                        "id":"UK0","name": "北京翠微"
-                    },
-                    {
-                        "id":"SP0","name": "北京华联新光百货"
-                    },
-                    {
-                        "id":"S80","name": "北京双安"
-                    },
-                    {
-                        "id":"S20","name": "北京中友百货"
-                    }
-                ]
-            },
-            {
-                "city": "常州",
-                "shop": [
-                    {
-                        "id":"UF0","name": "常州购物中心"
-                    }
-                ]
-            },
-            {
-                "city": "重庆",
-                "shop": [
-                    {
-                        "id":"UOO","name": "重庆世纪新都"
-                    },
-                    {
-                        "id":"UCO","name": "重庆太平洋"
-                    }
-                ]
-            },
-            {
-                "city": "成都",
-                "shop": [
-                    {
-                        "id":"UV0","name": "成都百盛"
-                    },
-                    {
-                        "id":"UA0","name": "成都王府井2"
-                    },
-                    {
-                        "id":"SQ0","name": "成都王府井百货"
-                    },
-                    {
-                        "id":"SD0","name": "成都伊势丹"
-                    }
-                ]
-            },
-            {
-                "city": "大连",
-                "shop": [
-                    {
-                        "id":"SC0","name": "大连麦凯乐"
-                    }
-                ]
-            },
-            {
-                "city": "福州",
-                "shop": [
-                    {
-                        "id":"SR0","name": "福州中城大洋"
-                    }
-                ]
-            },
-            {
-                "city": "广州",
-                "shop": [
-                    {
-                        "id":"SY0","name": "广州百货北京路店"
-                    }
-                ]
-            },
-            {
-                "city": "贵阳",
-                "shop": [
-                    {
-                        "id":"U10","name": "贵阳国贸"
-                    }
-                ]
-            },
-            {
-                "city": "哈尔滨",
-                "shop": [
-                    {
-                        "id":"UO0","name": "哈尔滨群力"
-                    },
-                    {
-                        "id":"SG0","name": "哈尔滨远大购物中心"
-                    }
-                ]
-            },
-            {
-                "city": "杭州",
-                "shop": [
-                    {
-                        "id":"S40","name": "杭州武林银泰百货"
-                    }
-                ]
-            },
-            {
-                "city": "合肥",
-                "shop": [
-                    {
-                        "id":"SZ0","name": "合肥商之都（宿州路店）"
-                    }
-                ]
-            },
-            {
-                "city": "济南",
-                "shop": [
-                    {
-                        "id":"SM0","name": "济南银座商城"
-                    }
-                ]
-            },
-            {
-                "city": "昆明",
-                "shop": [
-                    {
-                        "id":"SH0","name": "昆明金格汇都店"
-                    },
-                    {
-                        "id":"U40","name": "昆明百盛"
-                    }
-                ]
-            },
-            {
-                "city": "南京",
-                "shop": [
-                    {
-                        "id":"UE0","name": "南京大洋百货"
-                    },
-                    {
-                        "id":"SE0","name": "南京金鹰购物中心（新街口店）"
-                    },
-                    {
-                        "id":"UP0","name": "南京中央"
-                    }
-                ]
-            },
-            {
-                "city": "宁波",
-                "shop": [
-                    {
-                        "id":"SL0","name": "宁波天一银泰百货"
-                    },
-                    {
-                        "id":"UL0","name": "宁波鄞州银泰百货（万达店）"
-                    }
-                ]
-            },
-            {
-                "city": "青岛",
-                "shop": [
-                    {
-                        "id":"SK0","name": "青岛海信广场"
-                    }
-                ]
-            },
-            {
-                "city": "上海",
-                "shop": [
-                    {
-                        "id":"S50","name": "上海八佰伴"
-                    },
-                    {
-                        "id":"SI0","name": "上海东方商厦 （南京东路店）"
-                    },
-                    {
-                        "id":"S30","name": "上海淮海百盛"
-                    },
-                    {
-                        "id":"S00","name": "上海梅龙镇伊势丹"
-                    },
-                    {
-                        "id":"S10","name": "上海徐家汇太平洋"
-                    }
-                ]
-            },
-            {
-                "city": "深圳",
-                "shop": [
-                    {
-                        "id":"S70","name": "深圳华强北茂业百货"
-                    },
-                    {
-                        "id":"UR0","name": "深圳茂业东门店"
-                    },
-                    {
-                        "id":"U20","name": "深圳君尚"
-                    }
-                ]
-            },
-            {
-                "city": "沈阳",
-                "shop": [
-                    {
-                        "id":"UU0","name": "沈阳新玛特"
-                    },
-                    {
-                        "id":"SF0","name": "沈阳中兴商场"
-                    },
-                    {
-                        "id":"UG0","name": "沈阳卓展"
-                    }
-                ]
-            },
-            {
-                "city": "石家庄",
-                "shop": [
-                    {
-                        "id":"SW0","name": "石家庄北国"
-                    }
-                ]
-            },
-            {
-                "city": "苏州",
-                "shop": [
-                    {
-                        "id":"ST0","name": "苏州泰华"
-                    }
-                ]
-            },
-            {
-                "city": "太原",
-                "shop": [
-                    {
-                        "id":"U90","name": "太原王府井"
-                    }
-                ]
-            },
-            {
-                "city": "天津",
-                "shop": [
-                    {
-                        "id":"SA0","name": "天津伊势丹"
-                    }
-                ]
-            },
-            {
-                "city": "温州",
-                "shop": [
-                    {
-                        "id":"U60","name": "温州开太"
-                    },
-                    {
-                        "id":"UI0","name": "温州银泰"
-                    }
-                ]
-            },
-            {
-                "city": "无锡",
-                "shop": [
-                    {
-                        "id":"SN0","name": "无锡三阳百盛"
-                    }
-                ]
-            },
-            {
-                "city": "武汉",
-                "shop": [
-                    {
-                        "id":"SS0","name": "武汉广场"
-                    },
-                    {
-                        "id":"SX0","name": "武汉群光"
-                    }
-                ]
-            },
-            {
-                "city": "西安",
-                "shop": [
-                    {
-                        "id":"SV0","name": "西安金花"
-                    },
-                    {
-                        "id":"UD0","name": "西安金花高新店"
-                    },
-                    {
-                        "id":"UN0","name": "西安开元"
-                    }
-                ]
-            },
-            {
-                "city": "徐州",
-                "shop": [
-                    {
-                        "id":"UB0","name": "徐州金鹰（彭城广场店）"
-                    }
-                ]
-            },
-            {
-                "city": "长春",
-                "shop": [
-                    {
-                        "id":"U50","name": "长春欧亚"
-                    },
-                    {
-                        "id":"UH0","name": "长春卓展"
-                    }
-                ]
-            },
-            {
-                "city": "长沙",
-                "shop": [
-                    {
-                        "id":"U30","name": "长沙平和堂"
-                    },
-                    {
-                        "id":"UJ0","name": "长沙万达"
-                    }
-                ]
-            },
-            {
-                "city": "郑州",
-                "shop": [
-                    {
-                        "id":"SU0","name": "郑州丹尼斯"
-                    },
-                    {
-                        "id":"US0","name": "郑州丹尼斯大卫城"
-                    },
-                    {
-                        "id":"UQ0","name": "郑州丹尼斯花园店"
-                    }
-                ]
-            }
-        ];
-        dtd.resolve();
-        var handle = dtd.promise();
-        cache.shoppeData = data;
-        if (callback) {
-            callback();
-        }*/
-
         return handle;
     };
     var getDate = function (shoppe_code) {
@@ -906,6 +588,9 @@ function weixinActivity($el, cache) {
             dataType: "json"
         });
         handle1.then(function (data, xhr) {
+			
+			
+			
             console.log(data);
             if (data.success) {
                 shoppeData(function () {
@@ -927,7 +612,9 @@ function weixinActivity($el, cache) {
                         cache.cityData[item.city] = item.shop;
                     });
                     $el.cityInput.html(options.join(''));
-                    $el.phoneInput.val(cache.phone);
+					
+                    $el.phoneInput.val(data.data.tel);
+					
                     swipeUpFn(1);
                 });
             } else {
@@ -966,7 +653,35 @@ function weixinActivity($el, cache) {
         getTime(cache.shoppeCode, cache.date);
     });
 
-    $el.qryyBtn.on('tap', function () {
+
+
+
+
+
+
+$('.s2-3').click( function (){
+	$(this).hide();
+	$('select.ipt5 , select.ipt6 , select.ipt7').remove();
+	$('.s2-1').height(248)
+	$('.s2-2').css('marginLeft' , -78).css('bottom' , 	200)
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $el.qryyBtn.on('click', function () {
         var perplex;
         cache.name = $el.nameInput.val();
         cache.name = $.trim(cache.name);
@@ -987,35 +702,40 @@ function weixinActivity($el, cache) {
             swal('请选择专柜名称!', '', 'warning');
             return false;
         }
-        if (!cache.date) {
+		
+		
+		
+        if ($('select.ipt5').size() && $('select.ipt5').val() == '') {
             swal('请选择日期!', '', 'warning');
             return false;
         }
         cache.time = $el.timeInput.val();
-        if (!cache.time) {
+        if ($('select.ipt6').size() && $('select.ipt6').val() == '') {
             swal('请选择时间!', '', 'warning');
             return false;
         }
         perplex = $el.perplexInput.val();
-        if (!perplex) {
+        if ($('select.ipt7').size() && $('select.ipt7').val() == '') {
             swal('请选择困扰!', '', 'warning');
             return false;
         }
-
+		
         var handle4 = $.ajax({
             type: "POST", //POST
             url: ajaxHost + "add_book_ticket.php",
             data: {
+				category : 2 ,
                 book_name: cache.book_name,
                 book_user: cache.name,
-                book_user_phone: cache.phone,
+                book_user_phone: $('input.ipt2').val(),
                 book_shoppe: cache.shoppeCode,
-                book_date: cache.date,
-                book_time: cache.time,
-                question: perplex
+                book_date: $('select.ipt5').size() ? $('select.ipt5').val() : '',
+                book_time: $('select.ipt6').size() ? $('select.ipt6').val() : 0,
+                question: $('select.ipt7').size() ? $('select.ipt7').val() : '',
             },
             dataType: "json"
         });
+		
         handle4.then(function (data) {
             if (!data.success) {
                 swal(decodeURIComponent(data.msg), '', 'error');
@@ -1081,29 +801,38 @@ function weixinServing($el, cache) {
             type: "POST", //POST
             url: ajaxHost + "get_book_ticket_info.php",
             data: {
-                book_id: cache.book_id
+                book_id: cache.book_id,
+				category : 2
             },
             dataType: "json"
         });
         handle1.then(function (data, xhr) {
             //log.debug(data);
-            if (!data.success) {
-                swal(decodeURIComponent(data.msg), '', 'error');
-                return false;
-            }
-            $el.infoList.eq(0).text(data.data[0].book_user);
-            $el.infoList.eq(1).text(data.data[0].book_user_phone);
-            $el.infoList.eq(2).text(data.data[0].book_city);
-            $el.infoList.eq(3).text(data.data[0].book_shoppe);
-            $el.infoList.eq(4).text(data.data[0].book_date);
-            $el.infoList.eq(5).text(data.data[0].book_time);
-
+				if (!data.success) {
+					swal(decodeURIComponent(data.msg), '', 'error');
+					return false;
+				}
+			
+			
+			
+			
+				var HTML = '';
+                HTML +='<li>姓名：<span>' +data.data.book_user+ '</span></li>' 
+                +'<li>手机：<span>' +data.data.book_user_phone+ '</span></li>'
+                +'<li>城市：<span>' +data.data.book_city+ '</span></li>'
+                +'<li>专柜：<span>' +data.data.book_shoppe+ '</span></li>'
+                +(data.data.book_date == '' ? '' : '<li>预约日期：<span>' +data.data.book_date+ '</span></li>')
+                + ( data.data.book_time == 0 ? '' : '<li>预约时间：<span>' +data.data.book_time+ '</span></li>');
+				$('.s4-1').html(HTML);
+				
+				
+ 
             var qrsyBtnFunc;
-            if (data.data[0].is_execute === 1) {
+            if (data.data.is_execute == 1) {
                 qrsyBtnFunc = function () {
                     swal('您已经兑换!', '', 'warning');
                 };
-            } else if (data.data[0].is_execute === 0) {
+            } else if (data.data.is_execute == 0) {
                 qrsyBtnFunc = function () {
                     swipeUpFn(1);
                 };
@@ -1112,7 +841,14 @@ function weixinServing($el, cache) {
                     swal('兑换异常!', '', 'warning');
                 };
             }
+			
+			
+			
             $el.qrsyBtn.on('tap', qrsyBtnFunc);
+			
+			
+			
+			
         });
         handle1.fail(netError);
     };
@@ -1198,6 +934,7 @@ function weixinServing($el, cache) {
                 ba_code: cache.baCode,
                 score: starNum,
                 comment: propose,
+				category : 2
             },
             dataType: "json"
         });
