@@ -359,7 +359,7 @@ function HTMLStart() {
 
 var ajaxHost = 'http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/reservation/';
 var netError = function () {
-    swal('网络异常!', '', 'error');
+    swal('网络异常!');
 };
 var imgPath = './assets/images/';
 
@@ -374,7 +374,7 @@ var isauth = function (callback) {
     handle.then(function (data) {
         console.log(data);
         if (data.result !== 'success') {
-            //swal('服务端异常!', '', 'error');
+            //swal('服务端异常!');
             window.location.href="../auth.php?retURL="+window.location.href;
             return false;
         }
@@ -537,7 +537,7 @@ function weixinActivity($el, cache) {
         handle2.then(function (data) {
             console.log(data);
             if (!data.success) {
-                swal(decodeURIComponent(data.msg), '', 'error');
+                swal(decodeURIComponent(data.msg));
                 return false;
             }
             var options = ['<option value="default" selected disabled>请选择日期</option>'];
@@ -563,7 +563,7 @@ function weixinActivity($el, cache) {
         handle3.then(function (data) {
             console.log(data);
             if (!data.success) {
-                swal(decodeURIComponent(data.msg), '', 'error');
+                swal(decodeURIComponent(data.msg));
                 return false;
             }
             var options = ['<option value="default" selected disabled>请选择时间</option>'];
@@ -686,37 +686,37 @@ $('.s2-3').click( function (){
         cache.name = $el.nameInput.val();
         cache.name = $.trim(cache.name);
         if (!cache.name.length) {
-            swal('请输入姓名!', '', 'warning');
+            swal('请输入姓名!');
             return false;
         }
         //cache.phone = $el.phoneInput.val();
         //if (!cache.phone.length) {
-        //    swal('请输入手机号!', '', 'warning');
+        //    swal('请输入手机号!');
         //    return false;
         //}
         if (!cache.city) {
-            swal('请选择所在城市!', '', 'warning');
+            swal('请选择所在城市!');
             return false;
         }
         if (!cache.shoppeCode) {
-            swal('请选择专柜名称!', '', 'warning');
+            swal('请选择专柜名称!');
             return false;
         }
 		
 		
 		
         if ($('select.ipt5').size() && $('select.ipt5').val() == '') {
-            swal('请选择日期!', '', 'warning');
+            swal('请选择日期!');
             return false;
         }
         cache.time = $el.timeInput.val();
         if ($('select.ipt6').size() && $('select.ipt6').val() == '') {
-            swal('请选择时间!', '', 'warning');
+            swal('请选择时间!');
             return false;
         }
         perplex = $el.perplexInput.val();
         if ($('select.ipt7').size() && $('select.ipt7').val() == '') {
-            swal('请选择困扰!', '', 'warning');
+            swal('请选择困扰!');
             return false;
         }
 		
@@ -738,7 +738,7 @@ $('.s2-3').click( function (){
 		
         handle4.then(function (data) {
             if (!data.success) {
-                swal(decodeURIComponent(data.msg), '', 'error');
+                swal(decodeURIComponent(data.msg));
                 return false;
             }
             swipeUpFn(2);
@@ -809,7 +809,7 @@ function weixinServing($el, cache) {
         handle1.then(function (data, xhr) {
             //log.debug(data);
 				if (!data.success) {
-					swal(decodeURIComponent(data.msg), '', 'error');
+					swal(decodeURIComponent(data.msg));
 					return false;
 				}
 			
@@ -830,7 +830,7 @@ function weixinServing($el, cache) {
             var qrsyBtnFunc;
             if (data.data.is_execute == 1) {
                 qrsyBtnFunc = function () {
-                    swal('您已经兑换!', '', 'warning');
+                    swal('您已经兑换!');
                 };
             } else if (data.data.is_execute == 0) {
                 qrsyBtnFunc = function () {
@@ -838,7 +838,7 @@ function weixinServing($el, cache) {
                 };
             } else {
                 qrsyBtnFunc = function () {
-                    swal('兑换异常!', '', 'warning');
+                    swal('兑换异常!');
                 };
             }
 			
@@ -869,7 +869,7 @@ function weixinServing($el, cache) {
         cache.baCode = $el.baCodeInput.val();
         cache.baCode = $.trim(cache.baCode);
         if (!cache.baCode.length) {
-            swal('请输入 Ba Code!', '', 'warning');
+            swal('请输入 Ba Code!');
             return false;
         }
 
@@ -886,7 +886,7 @@ function weixinServing($el, cache) {
         handle2.then(function (data, xhr) {
             //log.debug(data);
             if (!data.success) {
-                swal(decodeURIComponent(data.msg), '', 'error');
+                swal(decodeURIComponent(data.msg));
                 return false;
             }
             swipeUpFn(2);
@@ -914,13 +914,13 @@ function weixinServing($el, cache) {
         }
         var starNum = $el.starInput.data('starNum');
         if (!starNum) {
-            swal('请评星!', '', 'warning');
+            swal('请评星!');
             return false;
         }
         var propose = $el.proposeInput.val();
         propose = $.trim(propose);
         if (!propose.length) {
-            swal('请输入建议!', '', 'warning');
+            swal('请输入建议!');
             return false;
         }
 
@@ -941,7 +941,7 @@ function weixinServing($el, cache) {
         handle3.then(function (data) {
             //log.debug(data);
             if (!data.success) {
-                swal(decodeURIComponent(data.msg), '', 'error');
+                swal(decodeURIComponent(data.msg));
                 return false;
             }
             swipeUpFn(3);
