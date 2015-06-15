@@ -1,3 +1,11 @@
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?3b899f5a83125bd9e0c4eabfc1372eab";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+
 log.enableAll()
 var Animate = {
     1: {
@@ -375,85 +383,32 @@ var isauth = function (callback) {
         console.log(data);
         if (data.result !== 'success') {
             //swal('服务端异常!');
-            window.location.href="../auth.php?retURL="+window.location.href;
+            window.location.href = "../auth.php?retURL=" + window.location.href;
             return false;
         }
         cache.isauth = data.jsonResponse;
         if (callback) {
             callback();
-        };
-		
-		
-		
-		  window.apiUrl = 'http://oper.weoper.com/weoper/mobile.php?act=module&name=yswfcommon&do=ApiJsSignature&weid=3'; //公众号接口
-		  window.title = '植村秀底妆形三部曲，免费体验童颜微光肌'; //分享标题
-		  window.desc = '植村秀邀您免费体验《童颜微光肌》底妆定制';  //分享摘要
-		  window.link = 'http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/shubb/weixin-activity.html?utm_source=share'; //分享链接
-		  window.img = 'http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/shubb/assets/images/share.jpg'; //分享图标
-		  window.openid =data.jsonResponse.from_user; 
-		  window.taskname = '植村秀底妆形三部曲'; //活动名称
-		  window.customer = '植村秀'; //客户名称
-		  window.fn;//自定义回调方法，分享成功后执行
-		  WXshare(apiUrl,title,desc,link,img,openid,taskname,customer,function(){
-			// alert(window.link);
-		  }); //分享方法调用
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+        }
+        ;
+
+
+        window.apiUrl = 'http://oper.weoper.com/weoper/mobile.php?act=module&name=yswfcommon&do=ApiJsSignature&weid=3'; //公众号接口
+        window.title = '植村秀底妆形三部曲，免费体验童颜微光肌'; //分享标题
+        window.desc = '植村秀邀您免费体验《童颜微光肌》底妆定制';  //分享摘要
+        window.link = 'http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/shubb/weixin-activity.html?utm_source=share'; //分享链接
+        window.img = 'http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/shubb/assets/images/share.jpg'; //分享图标
+        window.openid = data.jsonResponse.from_user;
+        window.taskname = '植村秀底妆形三部曲'; //活动名称
+        window.customer = '植村秀'; //客户名称
+        window.fn;//自定义回调方法，分享成功后执行
+        WXshare(apiUrl, title, desc, link, img, openid, taskname, customer, function () {
+            // alert(window.link);
+        }); //分享方法调用
+
+
     });
     handle.fail(netError);
-
-
-    /*var dtd = $.Deferred();
-     var data = {
-     "result": "success",
-     "jsonResponse": {
-     "weid": "3",
-     "lastupdate": "1434098806",
-     "from_user": "ocWH5jronemcinR94HF6H1-r4n04",
-     "subscribe": "1",
-     "nickname": "%E9%B2%81%E6%BB%A8%E9%80%8A%E5%B2%9B",
-     "encode_nickname": "%25E9%25B2%2581%25E6%25BB%25A8%25E9%2580%258A%25E5%25B2%259B",
-     "sex": "1",
-     "city": "%E6%B5%A6%E4%B8%9C%E6%96%B0%E5%8C%BA",
-     "country": "%E4%B8%AD%E5%9B%BD",
-     "province": "%E4%B8%8A%E6%B5%B7",
-     "language": "zh_CN",
-     "headimgurl": "http%3A%2F%2Fwx.qlogo.cn%2Fmmopen%2FQ3auHgzwzM6fJLib3TjcOmul1amWTfll7QfWJuWcIxL1aTakDU9LEm3gObMa0o7XgIht0ibDv7q9NibmxaI845VEBCy0xiaqSZb2nbiafk368VVk%2F0",
-     "privilege": "a%3A0%3A%7B%7D",
-     "subscribe_time": "1420038739",
-     "createtime": "1420038740",
-     "more": {
-     "fans_id": "323634",
-     "mobile": "18012341234",
-     "mobile_status": "0",
-     "sex": "0",
-     "birth": "1999-11-30",
-     "email": "",
-     "realname": "",
-     "address": "",
-     "resideprovince": "",
-     "residecity": ""
-     }
-     }
-     };
-     dtd.resolve();
-     var handle = dtd.promise();
-     cache.isauth = data.jsonResponse;
-     if (callback) {
-     callback();
-     }
-     */
 
     return handle;
 };
@@ -505,8 +460,11 @@ function weixinActivity($el, cache) {
     $el.timeInput = $('.ipt6', $el.infoBox);
     $el.perplexInput = $('.ipt7', $el.infoBox);
 
-    $el.goto.on('tap', function(){
-        window.location.href = 'http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/reservation/index.html';
+    $el.goto.on('tap', function () {
+        _hmt.push(['_trackEvent', '首页', '点击', '下滑按钮']);
+        setTimeout(function(){
+            window.location.href = 'http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/reservation/index.html';
+        }, 300);
     });
 
     var shoppeData = function (callback) {
@@ -519,7 +477,7 @@ function weixinActivity($el, cache) {
             console.log(data);
             cache.shoppeData = data;
             if (callback) {
-                 callback();
+                callback();
             }
         });
         handle.fail(netError);
@@ -577,6 +535,7 @@ function weixinActivity($el, cache) {
     };
 
     $el.wyyyBtn.on('tap', function (evt) {
+        _hmt.push(['_trackEvent', '首页', '点击', '我要预约']);
         var tapLock = $el.wyyyBtn.data('tapLock');
         if (tapLock) {
             return false;
@@ -588,9 +547,8 @@ function weixinActivity($el, cache) {
             dataType: "json"
         });
         handle1.then(function (data, xhr) {
-			
-			
-			
+
+
             console.log(data);
             if (data.success) {
                 shoppeData(function () {
@@ -612,9 +570,9 @@ function weixinActivity($el, cache) {
                         cache.cityData[item.city] = item.shop;
                     });
                     $el.cityInput.html(options.join(''));
-					
+
                     $el.phoneInput.val(data.data.tel);
-					
+
                     swipeUpFn(1);
                 });
             } else {
@@ -654,31 +612,12 @@ function weixinActivity($el, cache) {
     });
 
 
-
-
-
-
-
-$('.s2-3').click( function (){
-	$(this).hide();
-	$('select.ipt5 , select.ipt6 , select.ipt7').remove();
-	$('.s2-1').height(248)
-	$('.s2-2').css('marginLeft' , -78).css('bottom' , 	200)
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    $('.s2-3').click(function () {
+        $(this).hide();
+        $('select.ipt5 , select.ipt6 , select.ipt7').remove();
+        $('.s2-1').height(248)
+        $('.s2-2').css('marginLeft', -78).css('bottom', 200)
+    })
 
 
     $el.qryyBtn.on('click', function () {
@@ -702,9 +641,8 @@ $('.s2-3').click( function (){
             swal('请选择专柜名称!');
             return false;
         }
-		
-		
-		
+
+
         if ($('select.ipt5').size() && $('select.ipt5').val() == '') {
             swal('请选择日期!');
             return false;
@@ -719,12 +657,12 @@ $('.s2-3').click( function (){
             swal('请选择困扰!');
             return false;
         }
-		
+
         var handle4 = $.ajax({
             type: "POST", //POST
             url: ajaxHost + "add_book_ticket.php",
             data: {
-				category : 2 ,
+                category: 2,
                 book_name: cache.book_name,
                 book_user: cache.name,
                 book_user_phone: $('input.ipt2').val(),
@@ -735,7 +673,7 @@ $('.s2-3').click( function (){
             },
             dataType: "json"
         });
-		
+
         handle4.then(function (data) {
             if (!data.success) {
                 swal(decodeURIComponent(data.msg));
@@ -748,6 +686,7 @@ $('.s2-3').click( function (){
         //swipeUpFn(2);
     });
     $el.zdlBtn.on('tap', function () {
+        _hmt.push(['_trackEvent', '首页', '点击', '知道了']);
         if (WeixinJSBridge) {
             WeixinJSBridge.call('closeWindow');
         }
@@ -802,31 +741,28 @@ function weixinServing($el, cache) {
             url: ajaxHost + "get_book_ticket_info.php",
             data: {
                 book_id: cache.book_id,
-				category : 2
+                category: 2
             },
             dataType: "json"
         });
         handle1.then(function (data, xhr) {
             //log.debug(data);
-				if (!data.success) {
-					swal(decodeURIComponent(data.msg));
-					return false;
-				}
-			
-			
-			
-			
-				var HTML = '';
-                HTML +='<li>姓名：<span>' +data.data.book_user+ '</span></li>' 
-                +'<li>手机：<span>' +data.data.book_user_phone+ '</span></li>'
-                +'<li>城市：<span>' +data.data.book_city+ '</span></li>'
-                +'<li>专柜：<span>' +data.data.book_shoppe+ '</span></li>'
-                +(data.data.book_date == '' ? '' : '<li>预约日期：<span>' +data.data.book_date+ '</span></li>')
-                + ( data.data.book_time == 0 ? '' : '<li>预约时间：<span>' +data.data.book_time+ '</span></li>');
-				$('.s4-1').html(HTML);
-				
-				
- 
+            if (!data.success) {
+                swal(decodeURIComponent(data.msg));
+                return false;
+            }
+
+
+            var HTML = '';
+            HTML += '<li>姓名：<span>' + data.data.book_user + '</span></li>'
+                + '<li>手机：<span>' + data.data.book_user_phone + '</span></li>'
+                + '<li>城市：<span>' + data.data.book_city + '</span></li>'
+                + '<li>专柜：<span>' + data.data.book_shoppe + '</span></li>'
+                + (data.data.book_date == '' ? '' : '<li>预约日期：<span>' + data.data.book_date + '</span></li>')
+                + ( data.data.book_time == 0 ? '' : '<li>预约时间：<span>' + data.data.book_time + '</span></li>');
+            $('.s4-1').html(HTML);
+
+
             var qrsyBtnFunc;
             if (data.data.is_execute == 1) {
                 qrsyBtnFunc = function () {
@@ -835,20 +771,19 @@ function weixinServing($el, cache) {
             } else if (data.data.is_execute == 0) {
                 qrsyBtnFunc = function () {
                     swipeUpFn(1);
+                    _hmt.push(['_trackEvent', '首页', '点击', '确认输入']);
                 };
             } else {
                 qrsyBtnFunc = function () {
                     swal('兑换异常!');
+                    _hmt.push(['_trackEvent', '首页', '点击', '确认输入']);
                 };
             }
-			
-			
-			
+
+
             $el.qrsyBtn.on('tap', qrsyBtnFunc);
-			
-			
-			
-			
+
+
         });
         handle1.fail(netError);
     };
@@ -858,10 +793,11 @@ function weixinServing($el, cache) {
      * debug
      */
     /*$el.qrsyBtn.on('tap', function(){
-        swipeUpFn(1);
-    });*/
+     swipeUpFn(1);
+     });*/
 
     $el.qrtj1Btn.on('tap', function () {
+        _hmt.push(['_trackEvent', '首页', '点击', '确认提交1']);
         var tapLock = $el.qrtj1Btn.data('tapLock');
         if (tapLock) {
             return false;
@@ -899,6 +835,7 @@ function weixinServing($el, cache) {
         /*swipeUpFn(2);*/
     });
     $el.starInput.on('tap', function () {
+        _hmt.push(['_trackEvent', '首页', '点击', '评星按钮']);
         var $self = $(this);
         var starIndex = $self.index();
         $el.starInput.removeClass('on');
@@ -908,6 +845,7 @@ function weixinServing($el, cache) {
         $el.starInput.data('starNum', starIndex + 1);
     });
     $el.qrtj2Btn.on('tap', function () {
+        _hmt.push(['_trackEvent', '首页', '点击', '确认提交2']);
         var tapLock = $el.qrtj2Btn.data('tapLock');
         if (tapLock) {
             return false;
@@ -934,7 +872,7 @@ function weixinServing($el, cache) {
                 ba_code: cache.baCode,
                 score: starNum,
                 comment: propose,
-				category : 2
+                category: 2
             },
             dataType: "json"
         });
@@ -957,13 +895,15 @@ function weixinServing($el, cache) {
         /*swipeUpFn(3);*/
     });
     $el.ljfxBtn.on('tap', function () {
+        _hmt.push(['_trackEvent', '首页', '点击', '理解分享']);
         $el.sharePop.show();
-        setTimeout(function(){
+        setTimeout(function () {
             $el.sharePop.hide();
         }, 3000);
         //log.debug('ljfxBtn');
     });
     $el.exitBtn.on('tap', function () {
+        _hmt.push(['_trackEvent', '首页', '点击', '退出按钮']);
         if (WeixinJSBridge) {
             WeixinJSBridge.call('closeWindow');
         }
@@ -979,27 +919,23 @@ if (location.href.indexOf('weixin-serving.html') !== -1) {
 }
 
 
+$('.s4-3').bind('click', function () {
 
 
-
-
-$('.s4-3').bind('click' , function (){
-		
-
- 		//_hmt.push(['_trackEvent','botton','click','取消预约']);
-		$.post('../reservation/cancel_book_ticket.php',{
-					book_id:$.url().param('book_id'),
-					r:Math.random(),
-					category : 2 
-				},function(data) {
-				if(data.success) {
-					alert('您已取消本次预约，如需重新预约，请进入导航栏中【预约底妆】，重新进行预约。');
-					wx.closeWindow();
-					//window.location.href = 'weixin-activity.html';
-				} else {
-					alert(data.msg);
-				}
-			},'json')
+    //_hmt.push(['_trackEvent','botton','click','取消预约']);
+    $.post('../reservation/cancel_book_ticket.php', {
+        book_id: $.url().param('book_id'),
+        r: Math.random(),
+        category: 2
+    }, function (data) {
+        if (data.success) {
+            alert('您已取消本次预约，如需重新预约，请进入导航栏中【预约底妆】，重新进行预约。');
+            wx.closeWindow();
+            //window.location.href = 'weixin-activity.html';
+        } else {
+            alert(data.msg);
+        }
+    }, 'json')
 })
 
 
