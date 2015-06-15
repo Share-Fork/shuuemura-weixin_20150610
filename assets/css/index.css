@@ -294,7 +294,17 @@ body, input {
     background: url(../images/yy_2.png) no-repeat;
     width: 176px;
     height: 71px;
-    left: 50%;
+    left: 32%;
+    margin-left: -88px;
+    bottom: 0
+}
+
+.s4-3 {
+    position: absolute;
+    background: url(../images/button.png) no-repeat;
+    width: 176px;
+    height: 71px;
+    left: 68%;
     margin-left: -88px;
     bottom: 0
 }

@@ -387,7 +387,7 @@ var isauth = function (callback) {
 		
 		  window.apiUrl = 'http://oper.weoper.com/weoper/mobile.php?act=module&name=yswfcommon&do=ApiJsSignature&weid=3'; //公众号接口
 		  window.title = '植村秀底妆形三部曲，免费体验童颜微光肌'; //分享标题
-		  window.desc = '这个春夏，植村秀带你开启童颜微光季！';  //分享摘要
+		  window.desc = '植村秀邀您免费体验《童颜微光肌》底妆定制';  //分享摘要
 		  window.link = 'http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/shubb/weixin-activity.html?utm_source=share'; //分享链接
 		  window.img = 'http://oper.weoper.com/weoper/wesite/shuuemura/shuuemura1501/shubb/assets/images/share.jpg'; //分享图标
 		  window.openid =data.jsonResponse.from_user; 
@@ -977,3 +977,43 @@ if (location.href.indexOf('weixin-activity.html') !== -1) {
 if (location.href.indexOf('weixin-serving.html') !== -1) {
     weixinServing($el, cache);
 }
+
+
+
+
+
+
+$('.s4-3').bind('click' , function (){
+		
+
+ 		//_hmt.push(['_trackEvent','botton','click','取消预约']);
+		$.post('../reservation/cancel_book_ticket.php',{
+					book_id:$.url().param('book_id'),
+					r:Math.random(),
+					category : 2 
+				},function(data) {
+				if(data.success) {
+					alert('您已取消本次预约，如需重新预约，请进入导航栏中【预约底妆】，重新进行预约。');
+					wx.closeWindow();
+					//window.location.href = 'weixin-activity.html';
+				} else {
+					alert(data.msg);
+				}
+			},'json')
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
